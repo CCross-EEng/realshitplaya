@@ -1,31 +1,33 @@
-/* Shared behaviour for inner sheets: scroll reveals + soft page transitions. */
+/* Scroll reveals, nav visibility and the current-section marker. */
 (function () {
-  // Reveal on scroll
   const items = document.querySelectorAll('.rv, .rv-draw');
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-      });
-    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
     items.forEach((el) => io.observe(el));
   } else {
     items.forEach((el) => el.classList.add('in'));
   }
 
-  // Fade-out veil on internal navigation
-  const veil = document.createElement('div');
-  veil.className = 'veil';
-  document.body.appendChild(veil);
-  document.addEventListener('click', (e) => {
-    const a = e.target.closest('a');
-    if (!a || a.target === '_blank' || e.metaKey || e.ctrlKey || e.shiftKey) return;
-    const href = a.getAttribute('href');
-    if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || /^https?:/.test(href) || /\.pdf$/i.test(href)) return;
-    if (href.split('#')[0] === location.pathname.split('/').pop()) return;
-    e.preventDefault();
-    veil.classList.add('on');
-    setTimeout(() => { location.href = href; }, 380);
-  });
-  window.addEventListener('pageshow', () => veil.classList.remove('on'));
+  const nav = document.getElementById('nav');
+  const cover = document.getElementById('cover');
+  if (!nav || !cover) return;
+  const onScroll = () => nav.classList.toggle('on', scrollY > cover.offsetHeight * 0.6);
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // highlight the section in view
+  const links = [...nav.querySelectorAll('ul a')];
+  const map = { quadcopter: 'projects', plc: 'projects', cmos: 'projects' };
+  if ('IntersectionObserver' in window) {
+    const so = new IntersectionObserver((es) => {
+      es.forEach((e) => {
+        if (!e.isIntersecting) return;
+        const id = map[e.target.id] || e.target.id;
+        links.forEach((a) => a.classList.toggle('cur', a.getAttribute('href') === '#' + id));
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    document.querySelectorAll('.band[id]').forEach((s) => so.observe(s));
+  }
 })();

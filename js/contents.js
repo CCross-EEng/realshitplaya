@@ -2,14 +2,14 @@
    ride on the outer vertices and point outward with schematic leader lines. */
 (function () {
   const SECTIONS = [
-    { n: 'I',    t: 'About',                 s: 'Welcome · career objective', href: 'about.html' },
-    { n: 'II',   t: 'Senior Design',         s: 'EE 4910 / 4920 capstone',    href: 'senior-design.html' },
-    { n: 'III',  t: 'Projects',              s: 'Pendulum · quad · PLC · CMOS', href: 'projects.html' },
-    { n: 'IV',   t: 'Résumé',                s: 'View or download',           href: 'resume.html' },
-    { n: 'V',    t: 'Gen Ed Reflection',     s: 'Beyond the lab',             href: 'reflections.html#gen-ed' },
-    { n: 'VI',   t: 'Cumulative Reflection', s: 'Four years in review',       href: 'reflections.html#cumulative' },
-    { n: 'VII',  t: 'Ethics',                s: 'Engineering ethics paper',   href: 'ethics.html' },
-    { n: 'VIII', t: 'Contact',               s: 'Email · phone · links',      href: 'about.html#contact' },
+    { n: 'I',    t: 'About',                 s: 'Welcome · career objective', href: '#about' },
+    { n: 'II',   t: 'Senior Design',         s: 'EE 4910 / 4920 capstone',    href: '#senior-design' },
+    { n: 'III',  t: 'Projects',              s: 'Pendulum · quad · PLC · CMOS', href: '#projects' },
+    { n: 'IV',   t: 'Résumé',                s: 'View · download',           href: '#resume' },
+    { n: 'V',    t: 'Gen Ed Reflection',     s: 'Beyond the lab',             href: '#gen-ed' },
+    { n: 'VI',   t: 'Cumulative Reflection', s: 'Four years in review',       href: '#cumulative' },
+    { n: 'VII',  t: 'Ethics',                s: 'Engineering ethics paper',   href: '#ethics' },
+    { n: 'VIII', t: 'Contact',               s: 'Email · phone · links',      href: '#contact' },
   ];
 
   const canvas = document.getElementById('net');
@@ -73,8 +73,6 @@
   // which outer vertices carry a section label
   const LABEL_V = [0, 9, 4, 3, 6, 10, 7, 11];
 
-  document.getElementById('nCount').textContent = pts.length;
-  document.getElementById('eCount').textContent = edges.length;
 
   // ---------- DOM: labels + table of contents ----------
   let hot = -1;

@@ -8,112 +8,57 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23000'/%3E%3Crect x='8' y='8' width='16' height='16' fill='none' stroke='%23fff' stroke-width='2'/%3E%3Cpath d='M12 8V4M16 8V4M20 8V4M12 24v4M16 24v4M20 24v4M8 12H4M8 16H4M8 20H4M24 12h4M24 16h4M24 20h4' stroke='%23fff' stroke-width='1.6'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100;200;300;400;500&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100;200;300;400;500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <style>
-    /* ================= COVER (white) ================= */
-    .cover {
-      --pink: #0a0a0a;
-      --pmuted: #6b6b6b;
-      --pline: rgba(0, 0, 0, 0.14);
-      position: relative;
-      height: 100vh; height: 100svh; min-height: 600px;
-      overflow: hidden;
-      background: #fff;
-      color: var(--pink);
+    /* ===== Cover ===== */
+    .cover { height: 100vh; height: 100svh; min-height: 600px; padding: 0; }
+    #hero3d { position: absolute; inset: 0; }
+    #hero3d canvas { display: block; width: 100%; height: 100%; }
+    .lbl3d { position: absolute; left: 0; top: 0; z-index: 2; font: 400 13px/1 var(--mono); color: var(--ink); pointer-events: none; opacity: 0; transition: opacity .8s; }
+    .cv-hud {
+      position: absolute; z-index: 3; left: clamp(32px, 4vw, 64px); top: clamp(34px, 5vh, 52px);
+      display: grid; gap: 6px; font: 400 11px/1.4 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted);
     }
-    .cover ::selection { background: #000; color: #fff; }
-    .cover a { color: var(--pink); }
-    .cover :focus-visible { outline-color: #000; }
-    .cover .sframe { position: absolute; inset: 14px; border: 1px solid var(--pline); pointer-events: none; z-index: 4; }
-    .cover .sframe .zx, .cover .sframe .zy { position: absolute; display: flex; justify-content: space-around; font: 400 8px/1 var(--mono); color: #9a9a9a; }
-    .cover .sframe .zx { inset: -11px 0 auto 0; }
-    .cover .sframe .zy { inset: 0 auto 0 -10px; flex-direction: column; }
-
-    #pcb { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-
-    .cv-top {
-      position: absolute; inset: 0 0 auto 0; z-index: 5;
-      display: flex; justify-content: space-between; gap: 16px;
-      padding: clamp(30px, 4.5vh, 46px) clamp(30px, 4vw, 60px) 0;
-      pointer-events: none;
-    }
-    .cv-top .label { color: var(--pmuted); background: rgba(255,255,255,.85); }
-    .cv-top .label b { color: var(--pink); font-weight: 500; }
-
-    /* Name block — bottom right */
-    .cv-id {
-      position: absolute; z-index: 5;
-      right: clamp(32px, 4.4vw, 70px); bottom: clamp(40px, 7vh, 72px);
-      text-align: right;
-      isolation: isolate;
-    }
-    .cv-id::before {
-      content: ''; position: absolute; inset: -60px -80px -50px -110px; z-index: -1;
-      background: radial-gradient(closest-side, rgba(255,255,255,.97) 64%, rgba(255,255,255,0));
-    }
-    .cv-links { display: flex; justify-content: flex-end; gap: 26px; margin-bottom: 14px; }
-    .cv-links a {
-      font: 500 12px/1 var(--mono); letter-spacing: .16em; text-transform: uppercase; text-decoration: none;
-      padding: 10px 0; position: relative;
-    }
+    .cv-hud b { color: var(--ink); font-weight: 400; display: inline-block; min-width: 6.5ch; text-align: right; }
+    .cv-hud .mode { color: var(--ink); }
+    .cv-id { position: absolute; z-index: 3; right: clamp(32px, 4.4vw, 70px); bottom: clamp(40px, 7vh, 72px); text-align: right; }
+    .cv-links { display: flex; justify-content: flex-end; gap: 26px; margin-bottom: 10px; }
+    .cv-links a { position: relative; padding: 10px 0; font: 500 12px/1 var(--mono); letter-spacing: .16em; text-transform: uppercase; text-decoration: none; }
     .cv-links a::after { content: ''; position: absolute; left: 0; right: 0; bottom: 4px; height: 1px; background: currentColor; transform: scaleX(.3); transform-origin: right; transition: transform .4s var(--ease); }
     .cv-links a:hover::after, .cv-links a:focus-visible::after { transform: scaleX(1); }
-    .cv-id h1 {
-      margin: 0;
-      font-weight: 200;
-      font-size: clamp(3.6rem, 10vw, 10rem);
-      line-height: .84;
-      letter-spacing: -0.055em;
-      white-space: nowrap;
-      color: #000;
-    }
-    .cv-id p { margin: 18px 0 0; font: 400 11px/1.7 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--pmuted); }
-
+    .cv-id h1 { margin: 0; font-weight: 200; font-size: clamp(2.8rem, 6.4vw, 6.6rem); line-height: .9; letter-spacing: -0.05em; white-space: nowrap; }
+    .cv-id p { margin: 14px 0 0; font: 400 11px/1.7 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
     .cv-scroll {
-      position: absolute; z-index: 5; left: clamp(32px, 4vw, 64px); bottom: clamp(40px, 7vh, 72px);
+      position: absolute; z-index: 3; left: clamp(32px, 4vw, 64px); bottom: clamp(40px, 7vh, 72px);
       display: flex; align-items: center; gap: 14px; text-decoration: none;
-      font: 400 11px/1 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--pmuted) !important;
-      background: rgba(255,255,255,.85); padding: 4px 8px 4px 0;
+      font: 400 11px/1 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--muted);
     }
-    .cv-scroll .ln { position: relative; width: 1px; height: 46px; background: rgba(0,0,0,.15); overflow: hidden; }
-    .cv-scroll .ln::after { content: ''; position: absolute; left: 0; top: -40%; width: 1px; height: 40%; background: #000; animation: drip 2.2s cubic-bezier(.6,0,.3,1) infinite; }
+    .cv-scroll .ln { position: relative; width: 1px; height: 46px; background: var(--line); overflow: hidden; }
+    .cv-scroll .ln::after { content: ''; position: absolute; left: 0; top: -40%; width: 1px; height: 40%; background: var(--ink); animation: drip 2.2s cubic-bezier(.6,0,.3,1) infinite; }
     @keyframes drip { to { top: 100%; } }
-    .cv-scroll:hover { color: #000 !important; }
-
+    .cv-scroll:hover { color: var(--ink); }
     @media (max-width: 760px) {
       .cv-id { left: 26px; right: 26px; bottom: 96px; }
-      .cv-id h1 { font-size: clamp(3.2rem, 17vw, 5rem); }
+      .cv-id h1 { font-size: clamp(2.6rem, 13vw, 4rem); }
       .cv-scroll { bottom: 34px; left: auto; right: 26px; }
-      .cv-top .label:last-child { display: none; }
     }
 
-    /* ================= CONTENTS (black) ================= */
-    #contents { position: relative; height: 100vh; height: 100svh; min-height: 640px; overflow: hidden; background: #000; }
-    #contents .frame { position: absolute; }
-    #contents .pcb-side { position: absolute; opacity: .08; }
+    /* ===== Contents ===== */
+    #contents { height: 100vh; height: 100svh; min-height: 640px; padding: 0; }
     #net { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: grab; touch-action: pan-y; z-index: 1; }
     #net.drag { cursor: grabbing; }
     .nodes { position: absolute; inset: 0; pointer-events: none; z-index: 5; }
-    .node {
-      position: absolute; left: 0; top: 0; pointer-events: auto; text-decoration: none; white-space: nowrap;
-      display: grid; grid-template-columns: auto auto; column-gap: 10px; align-items: baseline;
-      padding: 6px 2px; will-change: transform, opacity; opacity: 0;
-    }
+    .node { position: absolute; left: 0; top: 0; pointer-events: auto; text-decoration: none; white-space: nowrap; display: grid; grid-template-columns: auto auto; column-gap: 10px; align-items: baseline; padding: 6px 2px; will-change: transform, opacity; opacity: 0; }
     .node .n { grid-column: 1; grid-row: 1; font: 400 11px/1 var(--mono); color: var(--muted); letter-spacing: .1em; }
     .node .t { grid-column: 2; grid-row: 1; font-weight: 300; font-size: clamp(15px, 1.35vw, 21px); letter-spacing: -0.01em; color: var(--ink); }
     .node .s { grid-column: 2; grid-row: 2; font: 400 10px/1.6 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
     .node.left { text-align: right; }
-    .node.left .t { grid-column: 1; }
-    .node.left .n { grid-column: 2; }
-    .node.left .s { grid-column: 1; }
+    .node.left .t { grid-column: 1; } .node.left .n { grid-column: 2; } .node.left .s { grid-column: 1; }
     .node:hover .t, .node.hot .t { text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 1px; }
     .node:hover .n, .node.hot .n { color: var(--ink); }
-
     .toc { position: absolute; z-index: 6; left: clamp(32px, 4.4vw, 70px); top: 50%; transform: translateY(-50%); margin: 0; padding: 0; list-style: none; width: min(260px, 26vw); }
-    .toc-head { margin-bottom: 18px; }
-    .toc-head h2 { margin: 6px 0 0; font-weight: 200; font-size: clamp(2.4rem, 4.2vw, 4rem); line-height: .95; letter-spacing: -0.04em; }
-    .toc-head h2 .paren { color: var(--faint); font-weight: 100; }
+    .toc-head h2 { margin: 0 0 22px; font-weight: 200; font-size: clamp(2.4rem, 4.2vw, 4rem); line-height: .95; letter-spacing: -0.045em; }
     .toc li { border-top: 1px solid var(--line); background: rgba(0,0,0,.6); }
     .toc li:last-child { border-bottom: 1px solid var(--line); }
     .toc li.toc-head { border: 0; background: none; }
@@ -123,51 +68,67 @@
     .toc a .a { font: 400 12px/1 var(--mono); color: var(--faint); transition: transform .3s var(--ease); }
     .toc a:hover, .toc a.hot { color: var(--ink); padding-left: 6px; }
     .toc a:hover .a, .toc a.hot .a { transform: translateX(4px); color: var(--ink); }
-    .hud { position: absolute; z-index: 6; font: 400 10px/1.7 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--faint); }
-    .hud.br { right: clamp(32px, 4vw, 64px); bottom: clamp(30px, 5vh, 52px); text-align: right; }
-    .hud.br b { color: var(--muted); font-weight: 400; }
-    .hud.tl { left: clamp(32px, 4.4vw, 70px); top: clamp(30px, 5vh, 52px); }
-    .hud.tr { right: clamp(32px, 4vw, 64px); top: clamp(26px, 5vh, 48px); display: flex; gap: 22px; }
-    .hud.tr a { color: var(--muted); text-decoration: none; padding: 4px 0; }
-    .hud.tr a:hover { color: var(--ink); }
-
+    .hud-br { position: absolute; z-index: 6; right: clamp(32px, 4vw, 64px); bottom: clamp(30px, 5vh, 52px); font: 400 10px/1.7 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--faint); }
+    .hud-br b { color: var(--muted); font-weight: 400; }
     @media (min-width: 861px) and (max-width: 1279px) {
       .toc { top: auto; bottom: clamp(30px, 5vh, 52px); transform: none; width: auto; }
       .toc li:not(.toc-head) { display: none; }
-      .toc-head { margin: 0; }
+      .toc-head h2 { margin: 0; }
     }
     @media (max-width: 860px) {
-      #contents { height: auto; min-height: 0; overflow: hidden; }
-      #net, .nodes { height: 62vh; top: 70px; bottom: auto; }
+      #contents { height: auto; min-height: 0; }
+      #net, .nodes { height: 62vh; top: 40px; bottom: auto; }
       .node .s { display: none; }
       .node .t { font-size: 13px; }
-      .toc { position: relative; left: auto; top: auto; transform: none; width: auto; margin: 0 26px; padding: calc(62vh + 90px) 0 50px; }
-      .hud.br { display: none; }
+      .toc { position: relative; left: auto; top: auto; transform: none; width: auto; margin: 0 26px; padding: calc(62vh + 60px) 0 60px; }
+      .hud-br { display: none; }
     }
+
+    /* ===== Résumé ===== */
+    .pdf { max-width: 980px; border: 1px solid var(--line); background: #fff; }
+    .pdf object { display: block; width: 100%; height: min(1270px, 130vw); border: 0; }
+    .pdf object p { padding: 24px; color: #111; }
+
+    /* ===== Contact ===== */
+    .contact-cells b { font-weight: 200; font-size: clamp(20px, 2vw, 28px); letter-spacing: -0.02em; }
   </style>
-  <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
+  <div class="frame" aria-hidden="true"></div>
+
+  <nav class="nav" id="nav" aria-label="Sections">
+    <a class="brand" href="#cover">Chris Cross</a>
+    <ul>
+      <li class="keep"><a href="#contents">contents</a></li>
+      <li><a href="#about">about</a></li>
+      <li><a href="#senior-design">senior design</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#resume">résumé</a></li>
+      <li><a href="#reflections">reflections</a></li>
+      <li><a href="#ethics">ethics</a></li>
+      <li class="keep"><a href="#contact">contact</a></li>
+    </ul>
+  </nav>
+
   <!-- ================= COVER ================= -->
-  <header class="cover" id="cover">
-    <div class="sframe" aria-hidden="true">
-      <div class="zx"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span></div>
-      <div class="zy"><span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span></div>
+  <header class="band light alt cover" id="cover">
+    <div id="hero3d" aria-hidden="true"></div>
+    <span class="lbl3d" id="lTh">θ</span>
+    <span class="lbl3d" id="lAl">α</span>
+
+    <div class="cv-hud" aria-hidden="true">
+      <span>Rotary inverted pendulum</span>
+      <span class="mode" id="hMode">Standby</span>
+      <span>θ arm <b id="hTh">+0.0°</b></span>
+      <span>α pend <b id="hAl">180.0°</b></span>
     </div>
 
-    <svg id="pcb" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
-
-    <div class="cv-top">
-      <span class="label"><b>CC</b> / 001 &nbsp;·&nbsp; Portfolio</span>
-      <span class="label">Fig. 00 — Embedded controller · I/O map</span>
-    </div>
-
-    <a class="cv-scroll" href="#contents"><span class="ln" aria-hidden="true"></span>Scroll · Contents</a>
+    <a class="cv-scroll" href="#contents"><span class="ln" aria-hidden="true"></span>Scroll</a>
 
     <div class="cv-id">
       <nav class="cv-links" aria-label="Quick links">
-        <a href="resume.html">Résumé</a>
-        <a href="about.html#contact">Contact</a>
+        <a href="#resume">Résumé</a>
+        <a href="#contact">Contact</a>
       </nav>
       <h1>Chris Cross</h1>
       <p>Electrical Engineering · Control Systems · Iowa State</p>
@@ -175,36 +136,481 @@
   </header>
 
   <!-- ================= CONTENTS ================= -->
-  <main id="contents" aria-labelledby="contents-h">
-    <svg class="pcb-side" data-seed="61" aria-hidden="true"></svg>
-    <div class="frame" aria-hidden="true">
-      <div class="zones-x"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span></div>
-      <div class="zones-y"><span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span></div>
-    </div>
-    <div class="hud tl" aria-hidden="true">CC / Index</div>
-    <nav class="hud tr" aria-label="Quick links"><a href="#cover">↑ cover</a><a href="resume.html">résumé</a><a href="about.html#contact">contact</a></nav>
-
+  <section class="band dark" id="contents" aria-labelledby="contents-h">
+    <svg class="pcb-side" data-seed="61" aria-hidden="true" style="opacity:.07"></svg>
     <canvas id="net" aria-hidden="true"></canvas>
     <div class="nodes" id="nodes"></div>
-
     <nav aria-label="Contents">
       <ol class="toc" id="toc">
-        <li class="toc-head">
-          <span class="eyebrow">Sheet 00 · Index</span>
-          <h2 id="contents-h"><span class="paren">(</span> contents <span class="paren">)</span></h2>
-        </li>
+        <li class="toc-head"><h2 id="contents-h">Contents</h2></li>
       </ol>
     </nav>
+    <div class="hud-br" aria-hidden="true"><b>Drag</b> to rotate · <b>select</b> a node</div>
+  </section>
 
-    <div class="hud br" aria-hidden="true">
-      <b>Drag</b> to rotate · <b>select</b> a node<br>
-      nodes <span id="nCount">—</span> · edges <span id="eCount">—</span>
-    </div>
+  <main>
+    <!-- ================= I · ABOUT ================= -->
+    <section class="band light" id="about" aria-labelledby="about-h">
+      <svg class="pcb-side" data-seed="3" aria-hidden="true"></svg>
+      <div class="wrap">
+        <h2 class="title rv" id="about-h">About</h2>
+        <p class="lede rv">
+          I'm <strong>Chris Cross</strong>, an Electrical Engineering student at Iowa State University with a minor in Mathematics, graduating in May 2027.
+          Welcome to my portfolio. Most of my work sits where math meets moving hardware: modeling a system, designing the feedback that keeps it stable,
+          and then proving it works on the real thing.
+        </p>
+        <div class="cells rv">
+          <div><span class="label">Degree</span><b>B.S. Electrical Engineering</b><p>Iowa State University · Minor in Mathematics</p></div>
+          <div><span class="label">Graduation</span><b>May 2027</b><p>Anticipated</p></div>
+          <div><span class="label">Focus</span><b>Control systems</b><p>State-space design, PID tuning, real-time control, industrial automation</p></div>
+          <div><span class="label">Coursework</span><b>Controls core</b><p>Linear Systems, Automatic Control Systems, Control System Simulation, Signals &amp; Systems, Embedded Systems</p></div>
+          <div><span class="label">Tools</span><b>MATLAB · Simulink</b><p>QUARC, Python, C, Studio 5000 ladder logic</p></div>
+          <div><span class="label">Involvement</span><b>Campus clubs</b><p>Vietnamese Student Association, Asian Student Union, Genre Music Club, Dub H</p></div>
+        </div>
+
+        <div class="part" id="objective">
+          <h3 class="sub rv">Career objective</h3>
+          <div class="split" style="margin-top:34px">
+            <div class="prose rv">
+              <span class="todo">Draft written from Chris's résumé and lab work. Chris should rewrite this in his own voice: the rubric asks for his thoughts about his future goals, not a résumé objective.</span>
+              <p>
+                The first time our balance controller caught the rotary pendulum and held it upright, control engineering stopped feeling abstract.
+                A pole in the right half-plane is a pendulum falling over; moving that pole is what keeps it standing. I want a career built around that:
+                taking something that wants to be unstable and making it dependable.
+              </p>
+              <p>
+                I'm most drawn to <strong>controls and automation engineering</strong>: designing and tuning feedback loops for motion systems, robotics
+                and aerial vehicles, and programming the PLCs that run real production lines. Working on a GuardLogix cell showed me how much of industry
+                depends on logic that has to be correct and safe every single cycle.
+              </p>
+              <p>
+                After graduation I'd like to join a team where I can learn from experienced controls engineers, take ownership of real hardware, and keep
+                building depth in modeling, estimation and embedded implementation. Longer term, I want to carry a system from first equations to
+                commissioning, and explain it clearly to the people who rely on it.
+              </p>
+            </div>
+            <figure class="fig sticky rv-draw" aria-label="Unity feedback loop">
+              <svg class="sch" viewBox="0 0 360 220">
+                <path class="draw-sc" pathLength="1" d="M20 90 H86"/>
+                <circle class="draw-sc" pathLength="1" cx="100" cy="90" r="14"/>
+                <path class="draw-sc" pathLength="1" d="M114 90 H150"/>
+                <rect class="draw-sc" pathLength="1" x="150" y="62" width="80" height="56"/>
+                <path class="draw-sc" pathLength="1" d="M230 90 H340"/>
+                <path class="draw-sc" pathLength="1" d="M290 90 V170 H100 V104"/>
+                <circle class="fill" cx="290" cy="90" r="3"/>
+                <text x="20" y="80">today</text>
+                <text x="276" y="80">career</text>
+                <text class="big" x="182" y="98">C</text>
+                <text class="small" x="116" y="186">feedback: mentors, projects, reflection</text>
+                <text x="88" y="78">+</text><text x="104" y="118">−</text>
+              </svg>
+              <figcaption>Closing the loop</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= II · SENIOR DESIGN ================= -->
+    <section class="band light alt" id="senior-design" aria-labelledby="sd-h">
+      <svg class="pcb-side" data-seed="17" aria-hidden="true"></svg>
+      <div class="wrap">
+        <h2 class="title rv" id="sd-h">Senior Design</h2>
+        <h3 class="sub rv">Project title goes here</h3>
+        <div class="meta rv">
+          <span class="chip">EE 4910 / 4920</span><span class="chip">Team sdmay__-__</span><span class="chip">2026 – 2027</span>
+        </div>
+        <div class="split">
+          <dl class="fields rv">
+            <div class="field"><dt>Description</dt><dd><span class="todo">2–3 paragraphs: what the project is, the problem it solves, who the client is, and how the system works at a high level (inputs → processing / control → outputs).</span></dd></div>
+            <div class="field"><dt>Problem</dt><dd><span class="todo">One sentence: “How can we … for … so that …?”, plus who / where / when / how.</span></dd></div>
+            <div class="field"><dt>Team</dt><dd><span class="todo">Team members, advisor and client.</span></dd></div>
+            <div class="field"><dt>My role</dt><dd><span class="todo">Chris's specific responsibilities and what he personally delivered.</span></dd></div>
+            <div class="field"><dt>Skills gained</dt><dd><span class="todo">Technical and professional skills gained.</span></dd></div>
+            <div class="field"><dt>Documents</dt><dd><span class="todo">Links: project plan, design document, poster / presentation, team website (PDFs go in /docs).</span></dd></div>
+            <div class="field"><dt>Big picture</dt><dd><span class="todo">Why it matters beyond the class: who benefits and what it improves.</span></dd></div>
+          </dl>
+          <figure class="fig sticky rv-draw" aria-label="System block diagram placeholder">
+            <svg class="sch" viewBox="0 0 360 260">
+              <rect class="draw-sc" pathLength="1" x="20" y="100" width="70" height="50"/>
+              <rect class="draw-sc" pathLength="1" x="145" y="90" width="80" height="70"/>
+              <rect class="draw-sc" pathLength="1" x="275" y="100" width="70" height="50"/>
+              <path class="draw-sc" pathLength="1" d="M90 125 H145 M225 125 H275"/>
+              <path class="draw-sc" pathLength="1" d="M310 150 V210 H185 V160"/>
+              <text x="33" y="130">INPUT</text><text x="160" y="129">SYSTEM</text><text x="285" y="130">OUTPUT</text>
+              <text class="small" x="196" y="226">sensing / feedback</text>
+            </svg>
+            <figcaption>Replace with project block diagram</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= III · PROJECTS ================= -->
+    <section class="band light" id="projects" aria-labelledby="proj-h">
+      <svg class="pcb-side" data-seed="23" aria-hidden="true"></svg>
+      <div class="wrap">
+        <h2 class="title rv" id="proj-h">Projects</h2>
+        <p class="lede rv">
+          Four builds that run from <strong>equations to hardware</strong>: an unstable pendulum held upright by state feedback, a quadcopter tuned to
+          fly a trajectory, a PLC cell sorting and assembling parts on a live conveyor, and a CMOS wafer fabricated in a cleanroom.
+        </p>
+
+        <div class="part" id="pendulum">
+          <h3 class="sub rv">Rotary Inverted Pendulum Control</h3>
+          <div class="meta rv"><span class="chip">Spring 2026</span><span class="chip">EE 4760 · Control System Simulation</span><span class="chip">MATLAB</span><span class="chip">Simulink</span><span class="chip">QUARC</span><span class="chip">Quanser SRV02</span></div>
+          <div class="split">
+            <div class="rv">
+              <dl class="fields">
+                <div class="field"><dt>Description</dt><dd>
+                  <p>A three-lab sequence that takes a Quanser rotary inverted pendulum from a blank model to a working swing-up-and-balance controller.
+                  We derived a four-state state-space model (arm angle θ, pendulum angle α and their rates) from the physical and actuator parameters.
+                  One open-loop pole came out in the right half-plane, which confirmed the upright pendulum is unstable on its own.</p>
+                  <p>After confirming controllability (full-rank 4×4 controllability matrix), we designed a state-feedback gain <strong>K</strong> by pole placement
+                  through a companion-form transformation. The desired poles were −2.8 ± j2.86, −30 and −40, and we checked the result against MATLAB's
+                  <code>place</code>. We simulated in Simulink, then compiled with QUARC to run in real time on the hardware, with switch logic so balance
+                  control engages only near upright. The last lab added an energy-based swing-up controller that hands off cleanly to balance.</p>
+                </dd></div>
+                <div class="field"><dt>My role</dt><dd>
+                  <p>Member of a lab team with Drew Bixler, Alex Kopeny and Alex Hardcopf (the swing-up lab was a combined six-person section). I worked through
+                  the modeling, pole-placement design, Simulink simulation and hardware runs. I also wrote the sign-convention check for the model lab, confirming
+                  that counter-clockwise rotation reads positive on the encoders, matching the math model.</p>
+                  <span class="todo">Chris: add the specific parts you owned.</span>
+                </dd></div>
+                <div class="field"><dt>Skills gained</dt><dd>
+                  <ul>
+                    <li>State-space modeling of a nonlinear electromechanical system; stability from open-loop poles</li>
+                    <li>Controllability analysis, companion-form transformation, pole placement</li>
+                    <li>Validating a model against hardware: sign conventions, simulation vs. measured response</li>
+                    <li>Real-time deployment with Simulink + QUARC and switching between controllers</li>
+                    <li>Energy-based swing-up: measured potential energy 0.4193 J vs. 0.4199 J predicted</li>
+                  </ul>
+                  <p class="soft"><b>Soft</b>Splitting work across a team, iterating over several sessions, documenting results against specs.</p>
+                </dd></div>
+                <div class="field"><dt>Resources</dt><dd>
+                  <ul>
+                    <li>Quanser SRV02 rotary servo, rotary pendulum module, power amplifier, encoders</li>
+                    <li>MATLAB (<code>setup_rotpen.m</code>, pole-placement scripts), Simulink, QUARC real-time</li>
+                    <li>Quanser lab manual, course lectures, lab TA</li>
+                  </ul>
+                </dd></div>
+                <div class="field"><dt>Documents</dt><dd><a class="link" href="docs/EE4760_Rotary_Pendulum_Labs_4-6.pdf" target="_blank" rel="noopener">Lab reports 4–6 (PDF) ↗</a></dd></div>
+              </dl>
+              <div class="specs">
+                <div class="spec"><b>8.34°</b><span>Peak deflection · spec 15°</span></div>
+                <div class="spec"><b>4.28 V</b><span>Peak voltage · limit 10 V</span></div>
+                <div class="spec"><b>0.14%</b><span>PE measured vs. predicted</span></div>
+                <div class="spec"><b>4</b><span>States · rank-4 controllable</span></div>
+              </div>
+            </div>
+            <figure class="fig sticky rv-draw" aria-label="Rotary inverted pendulum and closed-loop poles">
+              <svg class="sch" viewBox="0 0 360 300">
+                <path class="draw-sc" pathLength="1" d="M30 250 H190"/>
+                <rect class="draw-sc" pathLength="1" x="80" y="210" width="60" height="40"/>
+                <path class="draw-sc" pathLength="1" d="M110 210 V196"/>
+                <ellipse class="draw-sc" pathLength="1" cx="110" cy="196" rx="62" ry="12"/>
+                <circle class="fill" cx="168" cy="200" r="3"/>
+                <path class="draw-sc" pathLength="1" d="M168 200 L182 72"/>
+                <circle class="draw-sc" pathLength="1" cx="182" cy="72" r="6"/>
+                <path class="dim dash" d="M168 200 V60"/>
+                <text class="big" x="180" y="140">α</text>
+                <path class="thin" d="M60 214 A55 14 0 0 1 48 200"/>
+                <text class="big" x="30" y="222">θ</text>
+                <text class="small" x="78" y="268">SRV02 SERVO</text>
+                <g transform="translate(220 40)">
+                  <rect class="dim" x="0" y="0" width="124" height="110"/>
+                  <path class="thin" d="M8 55 H118 M100 8 V102"/>
+                  <text class="small" x="104" y="16">jω</text><text class="small" x="110" y="68">σ</text>
+                  <path d="M84 33 l6 6 M90 33 l-6 6 M84 71 l6 6 M90 71 l-6 6 M28 52 l6 6 M34 52 l-6 6 M12 52 l6 6 M18 52 l-6 6"/>
+                  <path class="thin" d="M112 51 l6 8 M118 51 l-6 8"/>
+                  <text class="small" x="0" y="124">PLACED POLES</text>
+                  <text class="small" x="0" y="137">−2.8 ± j2.86 · −30 · −40</text>
+                </g>
+              </svg>
+              <figcaption>Plant + placed poles</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band light alt tight" id="quadcopter" aria-labelledby="quad-h">
+      <svg class="pcb-side" data-seed="29" aria-hidden="true"></svg>
+      <div class="wrap">
+        <h3 class="sub rv" id="quad-h">Quadcopter Stabilization &amp; Navigation</h3>
+        <div class="meta rv"><span class="chip">Spring 2026</span><span class="chip">EE 4760 · Control System Simulation</span><span class="chip">MATLAB</span><span class="chip">Python</span><span class="chip">Crazyflie</span><span class="chip">PID</span></div>
+        <div class="split">
+          <div class="rv">
+            <dl class="fields">
+              <div class="field"><dt>Description</dt><dd>
+                <p>Two labs on a Crazyflie nano-quadcopter. First, parameter estimation: we flew a scripted routine, logged 19 states (position, velocity,
+                Euler angles and rates, accelerations and the four rotor speeds), mapped rotor PWM to angular velocity (ω = 0.04 · PWM) and set up a
+                least-squares estimate in MATLAB for the moments of inertia and the thrust and drag coefficients. A sixth parameter, rotor inertia
+                <strong>I<sub>r</sub></strong>, came out at about −1.1 × 10⁻⁷, which confirmed it is negligible in the flight model.</p>
+                <p>Second, navigation: we tuned PID gains on x, y and z to keep step-response overshoot under 10% (z: K<sub>p</sub> = 2, K<sub>i</sub> = 0.5, K<sub>d</sub> = 0),
+                then flew a multi-waypoint trajectory. Raising K<sub>p</sub> by one destabilized the quad almost immediately. Raising K<sub>d</sub> by 0.3 still
+                tracked, but the flight was choppier. Finally we configured proximity-sensor obstacle avoidance in Python, setting the trigger distance and retreat velocity.</p>
+              </dd></div>
+              <div class="field"><dt>My role</dt><dd>
+                <p>Member of a four-person team with Drew, Alex H and Alex K, working across the flight script, the MATLAB least-squares estimation, and the gain
+                tuning and avoidance tests. We also changed the flight script to add a slow ascent and descent so the quad landed gently instead of cutting out mid-air.</p>
+                <span class="todo">Chris: name the pieces you personally drove.</span>
+              </dd></div>
+              <div class="field"><dt>Skills gained</dt><dd>
+                <ul>
+                  <li>System identification by least-squares regression from logged flight data</li>
+                  <li>Finite-difference estimation of angular accelerations (T = 0.1 s)</li>
+                  <li>PID tuning against an overshoot spec, and how sensitive stability is to K<sub>p</sub> vs. K<sub>d</sub></li>
+                  <li>Reading and modifying flight-control Python; safe hardware test practice</li>
+                </ul>
+                <p class="soft"><b>Soft</b>Debugging hardware under time pressure, team communication, test planning.</p>
+              </dd></div>
+              <div class="field"><dt>Resources</dt><dd>
+                <ul>
+                  <li>Crazyflie quadcopter, radio dongle, onboard proximity sensors</li>
+                  <li>Python flight scripts and PID tuning interface; MATLAB for data and regression</li>
+                  <li>Lab manual, padded flight area, course TA</li>
+                </ul>
+              </dd></div>
+              <div class="field"><dt>Documents</dt><dd><a class="link" href="docs/EE4760_Quadcopter_Labs_7-8.pdf" target="_blank" rel="noopener">Lab reports 7–8 (PDF) ↗</a></dd></div>
+            </dl>
+            <div class="specs">
+              <div class="spec"><b>19</b><span>Logged flight states</span></div>
+              <div class="spec"><b>6</b><span>Parameters estimated</span></div>
+              <div class="spec"><b>&lt;10%</b><span>Step overshoot</span></div>
+              <div class="spec"><b>~10⁻⁷</b><span>Rotor inertia</span></div>
+            </div>
+          </div>
+          <figure class="fig sticky rv-draw" aria-label="Quadcopter top view">
+            <svg class="sch" viewBox="0 0 360 300">
+              <g transform="translate(150 145)">
+                <path class="draw-sc" pathLength="1" d="M-70 -70 L70 70 M70 -70 L-70 70"/>
+                <rect class="draw-sc" pathLength="1" x="-18" y="-18" width="36" height="36"/>
+                <circle class="draw-sc" pathLength="1" cx="-70" cy="-70" r="30"/>
+                <circle class="draw-sc" pathLength="1" cx="70" cy="-70" r="30"/>
+                <circle class="draw-sc" pathLength="1" cx="-70" cy="70" r="30"/>
+                <circle class="draw-sc" pathLength="1" cx="70" cy="70" r="30"/>
+                <text x="-78" y="-66">ω1</text><text x="62" y="-66">ω2</text><text x="62" y="74">ω3</text><text x="-78" y="74">ω4</text>
+                <path class="thin" d="M0 0 H120 M0 0 V-120"/>
+                <text class="small" x="122" y="4">x</text><text class="small" x="4" y="-122">y</text>
+              </g>
+            </svg>
+            <figcaption>Crazyflie · X configuration</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="band light tight" id="plc" aria-labelledby="plc-h">
+      <svg class="pcb-side" data-seed="37" aria-hidden="true"></svg>
+      <div class="wrap">
+        <h3 class="sub rv" id="plc-h">PLC Factory Automation Cell</h3>
+        <div class="meta rv"><span class="chip">Spring 2026</span><span class="chip">EE 4760 · Control System Simulation</span><span class="chip">Studio 5000</span><span class="chip">Ladder logic</span><span class="chip">GuardLogix 5069-L320ERS2</span></div>
+        <div class="split">
+          <div class="rv">
+            <dl class="fields">
+              <div class="field"><dt>Description</dt><dd>
+                <p>A three-lab build of a conveyor cell that sorts parts, assembles them and rejects anything incomplete, programmed in ladder logic on an
+                Allen-Bradley Compact GuardLogix safety PLC. We mapped 17 standard and safety I/O points between sensors and solenoid actuators, then built
+                a latched start/stop circuit for the belt and chain conveyors.</p>
+                <p>Sorting latches inductive and IR sensor states, so plastic rings are kicked into a hopper while metal pegs pass through. Up/down counters
+                hold the hopper queue to five rings, and a rotary solenoid loads one ring at a time onto a passing peg. At the discharge, a one-shot and a
+                capacitive sensor latch an "assembled" bit, so only lone pegs or rings are rejected. A dual-channel (DCS) emergency stop latches the conveyors
+                off until the E-stop is released and the system is reset.</p>
+              </dd></div>
+              <div class="field"><dt>My role</dt><dd>
+                <p>Member of a four-person team with Alex H, Alex K and Drew, programming and testing on the live cell. The hopper count was incrementing
+                before the solenoid had physically kicked the ring, which capped the queue at four. A one-second timer fixed that and also gave the
+                rotary-solenoid logic the right timing. For rejects we chose latch logic over a full FIFO, then tested that it couldn't misfire.</p>
+                <span class="todo">Chris: note which rungs or features you wrote or debugged yourself.</span>
+              </dd></div>
+              <div class="field"><dt>Skills gained</dt><dd>
+                <ul>
+                  <li>Ladder logic: XIC/XIO, latching, one-shots, CTU/CTD counters, TOF timers</li>
+                  <li>Standard vs. safety I/O; dual-channel stops with the fault-present bit</li>
+                  <li>Finding race conditions between scan timing and physical actuator motion</li>
+                  <li>Inductive, IR-reflective and capacitive sensing for part identification</li>
+                </ul>
+                <p class="soft"><b>Soft</b>Choosing a simpler design deliberately, demonstrating safety behaviour, iterative testing.</p>
+              </dd></div>
+              <div class="field"><dt>Resources</dt><dd>
+                <ul>
+                  <li>Rockwell Studio 5000; Allen-Bradley 5069-L320ERS2 Compact GuardLogix PLC</li>
+                  <li>Conveyor sorting / assembly trainer: conveyors, solenoids, sensors, E-stop</li>
+                  <li>In-class latch examples, lab manual, course TA</li>
+                </ul>
+              </dd></div>
+              <div class="field"><dt>Documents</dt><dd><a class="link" href="docs/EE4760_PLC_Labs_9-11.pdf" target="_blank" rel="noopener">Lab reports 9–11 (PDF) ↗</a></dd></div>
+            </dl>
+            <div class="specs">
+              <div class="spec"><b>17</b><span>Standard + safety I/O</span></div>
+              <div class="spec"><b>5</b><span>Ring queue capacity</span></div>
+              <div class="spec"><b>1 s</b><span>Delay that fixed the race</span></div>
+              <div class="spec"><b>DCS</b><span>Dual-channel E-stop</span></div>
+            </div>
+          </div>
+          <figure class="fig sticky rv-draw" aria-label="Ladder logic excerpt">
+            <svg class="sch" viewBox="0 0 360 300">
+              <path class="draw-sc" pathLength="1" d="M20 20 V280 M340 20 V280"/>
+              <path class="draw-sc" pathLength="1" d="M20 50 H52 M68 50 H112 M128 50 H172 M188 50 H286 M314 50 H340"/>
+              <path d="M52 40 V60 M68 40 V60 M112 40 V60 M128 40 V60 M172 40 V60 M188 40 V60 M174 58 L186 42"/>
+              <path d="M290 40 A12 12 0 0 0 290 60 M310 40 A12 12 0 0 1 310 60"/>
+              <path class="thin" d="M36 50 V80 H52 M68 80 H96 V50 M52 70 V90 M68 70 V90"/>
+              <text class="small" x="44" y="34">START</text><text class="small" x="104" y="34">STOP</text><text class="small" x="164" y="34">FP</text><text class="small" x="272" y="34">CONVEYOR</text>
+              <path class="draw-sc" pathLength="1" d="M20 140 H52 M68 140 H132 M148 140 H286 M314 140 H340"/>
+              <path d="M52 130 V150 M68 130 V150 M132 130 V150 M148 130 V150"/>
+              <path d="M290 130 A12 12 0 0 0 290 150 M310 130 A12 12 0 0 1 310 150"/>
+              <path class="thin" d="M36 140 V170 H52 M68 170 H100 V140 M52 160 V180 M68 160 V180"/>
+              <text class="small" x="36" y="124">INDUCTIVE</text><text class="small" x="126" y="124">IR</text><text class="small" x="282" y="124">METAL</text>
+              <path class="draw-sc" pathLength="1" d="M20 230 H52 M68 230 H122 M138 230 H192 M208 230 H286 M314 230 H340"/>
+              <path d="M52 220 V240 M68 220 V240 M54 238 L66 222 M122 220 V240 M138 220 V240 M192 220 V240 M208 220 V240 M194 238 L206 222"/>
+              <path d="M290 220 A12 12 0 0 0 290 240 M310 220 A12 12 0 0 1 310 240"/>
+              <text class="small" x="44" y="214">METAL</text><text class="small" x="124" y="214">IR</text><text class="small" x="176" y="214">HOP_FULL</text><text class="small" x="272" y="214">SORT_SOL</text>
+            </svg>
+            <figcaption>Ladder excerpt · seal-in &amp; sort</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="band light alt tight" id="cmos" aria-labelledby="cmos-h">
+      <svg class="pcb-side" data-seed="43" aria-hidden="true"></svg>
+      <div class="wrap">
+        <h3 class="sub rv" id="cmos-h">CyMOS CMOS Fabrication Process</h3>
+        <div class="meta rv"><span class="chip">In progress</span><span class="chip"><span class="todo inline">course #</span></span><span class="chip">Cleanroom</span><span class="chip">Photolithography</span><span class="chip">Oxidation / diffusion</span></div>
+        <div class="split">
+          <div class="rv">
+            <dl class="fields">
+              <div class="field"><dt>Description</dt><dd>
+                <p>Fabricating a CMOS device wafer through a full six-mask cleanroom process: p-well, PMOS source/drain, NMOS source/drain, gate oxide, contact
+                vias and metal. Every step is tracked on a process traveler alongside test-wafer measurements.</p>
+                <p>Field and gate oxides are grown by wet and dry thermal oxidation. The p-well and both source/drain regions are formed by solid-source boron and
+                phosphorus deposition followed by drive-in diffusion. Predicted BOE etch times come from calibration test-wafer oxide thicknesses before each
+                photolithography step. Aluminum contacts go down by e-beam evaporation, the interconnect is defined by PAN etch, and a sinter forms ohmic contacts.</p>
+              </dd></div>
+              <div class="field"><dt>My role</dt><dd><span class="todo">Team or individual? The process steps Chris ran himself, the measurements he took, and anything he troubleshot.</span></dd></div>
+              <div class="field"><dt>Skills gained</dt><dd>
+                <ul>
+                  <li>Semiconductor process flow, from substrate to sintered metal contacts</li>
+                  <li>Oxidation and diffusion physics applied to choosing times and temperatures</li>
+                  <li>Photolithography, wet etching (BOE, PAN), etch-time prediction</li>
+                  <li>Cleanroom protocol and disciplined record-keeping</li>
+                </ul>
+              </dd></div>
+              <div class="field"><dt>Resources</dt><dd>
+                <ul>
+                  <li>University cleanroom: furnaces, mask aligner, wet benches, e-beam evaporator</li>
+                  <li>Six-level mask set, process traveler, calibration test wafers</li>
+                  <li><span class="todo inline">course manual / instructor</span></li>
+                </ul>
+              </dd></div>
+            </dl>
+            <div class="specs">
+              <div class="spec"><b>6</b><span>Mask levels</span></div>
+              <div class="spec"><b>2</b><span>NMOS + PMOS</span></div>
+              <div class="spec"><b>Al</b><span>E-beam metal</span></div>
+            </div>
+          </div>
+          <figure class="fig sticky rv-draw" aria-label="CMOS cross-section">
+            <svg class="sch" viewBox="0 0 360 250">
+              <path class="draw-sc" pathLength="1" d="M20 120 H340 V230 H20 Z"/>
+              <path class="draw-sc" pathLength="1" d="M40 120 V170 Q40 190 60 190 H160 Q180 190 180 170 V120"/>
+              <path class="draw-sc" pathLength="1" d="M55 120 V138 H85 V120 M135 120 V138 H165 V120"/>
+              <path class="draw-sc" pathLength="1" d="M215 120 V138 H245 V120 M295 120 V138 H325 V120"/>
+              <path class="thin" d="M20 120 V108 H55 V120 M165 120 V108 H215 V120 M325 120 V108 H340"/>
+              <rect class="draw-sc" pathLength="1" x="90" y="92" width="40" height="20"/>
+              <rect class="draw-sc" pathLength="1" x="250" y="92" width="40" height="20"/>
+              <path class="thin" d="M70 120 V80 M150 120 V80 M230 120 V80 M310 120 V80"/>
+              <text class="small" x="62" y="134">n+</text><text class="small" x="142" y="134">n+</text>
+              <text class="small" x="222" y="134">p+</text><text class="small" x="302" y="134">p+</text>
+              <text x="90" y="176">p-well</text><text x="230" y="210">n-substrate</text>
+              <text class="small" x="98" y="86">GATE</text><text class="small" x="258" y="86">GATE</text>
+              <text x="86" y="40">NMOS</text><text x="246" y="40">PMOS</text>
+            </svg>
+            <figcaption>CMOS pair · cross-section</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= IV · RÉSUMÉ ================= -->
+    <section class="band light" id="resume" aria-labelledby="resume-h">
+      <svg class="pcb-side" data-seed="31" aria-hidden="true"></svg>
+      <div class="wrap">
+        <h2 class="title rv" id="resume-h">Résumé</h2>
+        <div class="pdf rv">
+          <object data="assets/Christopher_Cross_Resume.pdf#view=FitH&amp;toolbar=0" type="application/pdf" aria-label="Christopher Cross résumé">
+            <p>Your browser can't display the PDF here. <a href="assets/Christopher_Cross_Resume.pdf" download>Download the résumé.</a></p>
+          </object>
+        </div>
+        <div class="links" style="margin-top:28px">
+          <a class="link" href="assets/Christopher_Cross_Resume.pdf" download>Download résumé (PDF) ↓</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= V–VI · REFLECTIONS ================= -->
+    <section class="band light alt" id="reflections" aria-labelledby="refl-h">
+      <svg class="pcb-side" data-seed="41" aria-hidden="true"></svg>
+      <div class="wrap">
+        <h2 class="title rv" id="refl-h">Reflections</h2>
+        <div class="part" id="gen-ed">
+          <h3 class="sub-sm rv">General education</h3>
+          <div class="prose rv">
+            <span class="todo">Write the general education reflection following the course rubric: which gen-ed courses were taken and why; what each changed about how you see people, society or communication; concrete links back to engineering; how it shapes the engineer you want to be.</span>
+          </div>
+        </div>
+        <div class="part" id="cumulative">
+          <h3 class="sub-sm rv">Cumulative</h3>
+          <div class="prose rv">
+            <span class="todo">Write the cumulative reflection following the course rubric: where you started and what drew you to EE; turning points (e.g. the controls sequence and seeing a pendulum actually balance); strengths built and how these projects show them; honest areas for growth; how you'll keep learning after graduation.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= VII · ETHICS ================= -->
+    <section class="band light" id="ethics" aria-labelledby="eth-h">
+      <svg class="pcb-side" data-seed="53" aria-hidden="true"></svg>
+      <div class="wrap">
+        <h2 class="title rv" id="eth-h">Ethics</h2>
+        <h3 class="sub-sm rv">Paper title goes here</h3>
+        <dl class="fields rv" style="max-width:900px">
+          <div class="field"><dt>Course</dt><dd><span class="todo inline">EE 394 / EE 2320 · semester</span></dd></div>
+          <div class="field"><dt>Summary</dt><dd><span class="todo">The case or issue the paper examines and its central argument.</span></dd></div>
+          <div class="field"><dt>Framework</dt><dd><span class="todo">Codes or frameworks applied (e.g. IEEE Code of Ethics, NSPE).</span></dd></div>
+          <div class="field"><dt>Takeaway</dt><dd><span class="todo">What it means for how you'll practice engineering.</span></dd></div>
+          <div class="field"><dt>Full paper</dt><dd><span class="todo">Save as docs/Ethics_Paper.pdf and link it here.</span></dd></div>
+        </dl>
+      </div>
+    </section>
   </main>
 
+  <!-- ================= VIII · CONTACT ================= -->
+  <footer class="band dark" id="contact" aria-labelledby="contact-h">
+    <svg class="pcb-side" data-seed="67" aria-hidden="true"></svg>
+    <div class="wrap">
+      <h2 class="title rv" id="contact-h">Contact</h2>
+      <div class="cells contact-cells rv">
+        <a href="mailto:cmartincross@gmail.com"><span class="label">Email</span><b>cmartincross@gmail.com</b></a>
+        <a href="tel:+12243088086"><span class="label">Phone</span><b>(224) 308-8086</b></a>
+        <div><span class="label">Location</span><b>South Elgin, IL · Ames, IA</b></div>
+        <a href="https://github.com/CCross-EEng" target="_blank" rel="noopener"><span class="label">GitHub ↗</span><b>CCross-EEng</b></a>
+        <div><span class="label">LinkedIn</span><b><span class="todo inline">add URL</span></b></div>
+        <a href="assets/Christopher_Cross_Resume.pdf" download><span class="label">Résumé</span><b>Download PDF ↓</b></a>
+      </div>
+      <div class="foot">
+        <span>© 2026 Christopher Cross</span>
+        <span>B.S. Electrical Engineering · Iowa State University</span>
+        <a href="#cover">Back to top ↑</a>
+      </div>
+    </div>
+  </footer>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="js/hero3d.js"></script>
   <script src="js/pcb.js"></script>
-  <script src="js/cover.js"></script>
   <script src="js/side.js"></script>
   <script src="js/contents.js"></script>
   <script src="js/common.js"></script>

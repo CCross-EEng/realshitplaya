@@ -1,29 +1,30 @@
 # Chris Cross — Controls Portfolio
 
-Static portfolio site (plain HTML/CSS/JS, no build step). Open `index.html` or serve the folder:
+Single-page static site (plain HTML/CSS/JS, no build step). Open `index.html` or serve the folder:
 
 ```
 python -m http.server 8000
 ```
 
-## Pages
-| File | Rubric item |
+## Sections (all in `index.html`, top to bottom)
+| Anchor | Rubric item |
 |---|---|
-| `index.html` | Cover (animated controller schematic) → scrolls into the rotating contents index |
-| `about.html` | Welcome, contact info, career objective |
-| `senior-design.html` | Senior design (EE 4910/4920): description, role, skills, supporting docs, big picture |
-| `projects.html` | 4 projects: description, role, skills, resources, supporting docs |
-| `resume.html` | Résumé (HTML + PDF), research, awards, activities |
-| `reflections.html` | General education + cumulative reflections |
-| `ethics.html` | Ethics paper |
+| `#cover` | Welcome page: 3D rotary inverted pendulum (three.js + anime.js) |
+| `#contents` | Rotating contents index (black) |
+| `#about` | Introduction + career objective |
+| `#senior-design` | Senior design: description, role, skills, supporting docs, big picture |
+| `#projects` `#quadcopter` `#plc` `#cmos` | 4 projects: description, role, skills, resources, docs |
+| `#resume` | Résumé PDF + download |
+| `#reflections` (`#gen-ed`, `#cumulative`) | General education + cumulative reflections |
+| `#ethics` | Ethics paper |
+| `#contact` | Contact (black) |
 
 ## Filling in content
-Search the HTML for `class="todo"` — every placeholder is marked and renders as a dashed "TODO" box.
-Supporting PDFs go in `docs/`, the résumé PDF is `assets/Christopher_Cross_Resume.pdf`.
+Search `index.html` for `class="todo"`; every placeholder renders as a dashed "TODO" box.
+Supporting PDFs go in `docs/`; the résumé PDF is `assets/Christopher_Cross_Resume.pdf`.
 
 ## Scripts
-- `js/pcb.js` — PCB/controller schematic generator + anime.js animation (cover, and faint traces on dark pages)
-- `js/cover.js` — cover configuration and chip readout
-- `js/side.js` — faint left-edge traces on dark pages
-- `js/contents.js` — rotating geodesic contents index (canvas)
-- `js/common.js` — scroll reveals and page transitions
+- `js/hero3d.js`: cover 3D pendulum and its swing-up / balance / disturbance sequence
+- `js/contents.js`: rotating geodesic contents index (canvas)
+- `js/pcb.js` + `js/side.js`: faint PCB traces on the left of each section
+- `js/common.js`: scroll reveals, nav visibility, current-section marker
