@@ -11,27 +11,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100;200;300;400;500&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <style>
-    .cv-grid { display: grid; gap: clamp(28px, 4vw, 64px); grid-template-columns: minmax(0, 1fr); }
-    @media (min-width: 1100px) { .cv-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); } }
-    .row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 18px; padding: 16px 0; border-top: 1px dashed var(--line); }
-    .row:first-of-type { border-top: 0; padding-top: 0; }
-    .row strong { font-weight: 400; color: var(--ink); }
-    .row .when { font: 400 11px/1.8 var(--mono); color: var(--muted); letter-spacing: .06em; text-align: right; }
-    .row .sub { grid-column: 1 / -1; color: var(--ink-2); font-size: 15px; }
-    .row ul { grid-column: 1 / -1; margin: 4px 0 0; padding: 0; list-style: none; color: var(--ink-2); font-size: 15px; }
-    .row li { position: relative; padding-left: 20px; margin-bottom: .35em; }
-    .row li::before { content: ''; position: absolute; left: 0; top: .78em; width: 10px; height: 1px; background: var(--ink-2); }
-    .cv-sec { margin-bottom: 44px; }
-    .cv-sec > .label { display: block; padding-bottom: 12px; margin-bottom: 18px; border-bottom: 1px solid var(--line-2); color: var(--ink-2); }
-    .skills { display: grid; gap: 14px; }
-    .skills div { display: grid; grid-template-columns: 1fr; gap: 6px; }
-    @media (min-width: 640px) { .skills div { grid-template-columns: 170px 1fr; } }
-    .skills .label { line-height: 1.9; }
-    .skills p { margin: 0; color: var(--ink-2); font-size: 15px; }
-    .pdf { border: 1px solid var(--line); background: var(--bg-2); }
-    .pdf object, .pdf iframe { display: block; width: 100%; height: min(1100px, 130vw); border: 0; background: #fff; }
-    .pdf .bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 14px; border-bottom: 1px solid var(--line); }
-    @media (min-width: 1100px) { .pdf { position: sticky; top: 100px; } .pdf object { height: calc(100vh - 170px); } }
+    .pdf { max-width: 1000px; margin: 0 auto; border: 1px solid var(--line); background: #fff; }
+    .pdf object { display: block; width: 100%; height: min(1300px, 130vw); border: 0; }
+    .pdf object p { padding: 24px; color: #111; }
+    .pdf object a { color: #111; }
+    .dl { display: flex; justify-content: center; margin-top: 28px; }
   </style>
 </head>
 <body class="graph">
@@ -56,82 +40,19 @@
 
   <main>
     <section class="opener">
-      <p class="eyebrow intro">Sheet IV · Curriculum vitae</p>
+      <p class="eyebrow intro">Sheet IV · Résumé</p>
       <h1 class="intro d1"><span class="paren">(</span> résumé <span class="paren">)</span></h1>
-      <div class="links intro d2" style="margin-top:34px">
-        <a class="link" href="assets/Christopher_Cross_Resume.pdf" download>Download PDF ↓</a>
-        <a class="link ghost" href="assets/Christopher_Cross_Resume.pdf" target="_blank" rel="noopener">Open in new tab ↗</a>
-      </div>
     </section>
 
     <div class="sheet">
-      <section class="block rv" aria-label="Résumé">
-        <div class="cv-grid">
-          <div>
-            <div class="cv-sec">
-              <span class="label">Education</span>
-              <div class="row">
-                <strong>Iowa State University · Ames, IA</strong><span class="when">Anticipated May 2027</span>
-                <span class="sub">Bachelor of Science in Electrical Engineering, Minor in Mathematics · GPA 3.0 / 4.0</span>
-                <span class="sub">Relevant coursework: Linear Systems, Automatic Control Systems, Control System Simulation, Signals &amp; Systems, Embedded Systems</span>
-              </div>
-            </div>
-
-            <div class="cv-sec">
-              <span class="label">Technical skills</span>
-              <div class="skills">
-                <div><span class="label">Software &amp; analysis</span><p>MATLAB, Simulink, QUARC, Python, C, state-space modeling, pole placement, least-squares estimation</p></div>
-                <div><span class="label">Industrial control</span><p>Studio 5000, ladder logic, Allen-Bradley Compact GuardLogix PLC, safety I/O (DCS), counters and timers</p></div>
-                <div><span class="label">Controls &amp; hardware</span><p>PID tuning, Quanser SRV02 servo platform, Crazyflie quadcopter, Arduino, inductive / IR / capacitive / proximity sensors, solenoid actuators</p></div>
-              </div>
-            </div>
-
-            <div class="cv-sec">
-              <span class="label">Projects</span>
-              <div class="row"><strong><a href="projects.html#pendulum">Rotary Inverted Pendulum Control</a></strong><span class="when">Spring 2026</span><span class="sub">State-space model, pole-placement balance control and energy-based swing-up on Quanser hardware.</span></div>
-              <div class="row"><strong><a href="projects.html#quadcopter">Quadcopter Stabilization &amp; Navigation</a></strong><span class="when">Spring 2026</span><span class="sub">Least-squares parameter estimation, PID tuning under 10% overshoot, waypoint flight and obstacle avoidance.</span></div>
-              <div class="row"><strong><a href="projects.html#plc">PLC Factory Automation Cell</a></strong><span class="when">Spring 2026</span><span class="sub">Ladder logic for a sort / assemble / reject conveyor cell with a dual-channel E-stop.</span></div>
-              <div class="row"><strong><a href="projects.html#cmos">CyMOS CMOS Fabrication Process</a></strong><span class="when">In progress</span><span class="sub">Six-mask cleanroom CMOS process: oxidation, diffusion, lithography, e-beam metal.</span></div>
-            </div>
-
-            <div class="cv-sec">
-              <span class="label">Work experience</span>
-              <div class="row">
-                <strong>Iowa State University, Tech Lending · Student Employee</strong><span class="when">Dec 2022 – Feb 2023</span>
-                <ul>
-                  <li>Managed technology equipment inventory, handling checkouts and returns for a fluctuating volume of student customers.</li>
-                  <li>Explained technology options in non-technical terms and coordinated with coworkers through high-traffic periods.</li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="cv-sec">
-              <span class="label">Research &amp; publications</span>
-              <span class="todo">None listed yet. Add any undergraduate research, conference posters or papers here.</span>
-            </div>
-
-            <div class="cv-sec">
-              <span class="label">Awards &amp; honors</span>
-              <span class="todo">Add scholarships, Dean's List semesters or other recognition.</span>
-            </div>
-
-            <div class="cv-sec">
-              <span class="label">Leadership &amp; activities</span>
-              <div class="row"><strong>Vietnamese Student Association · Member</strong><span class="when">Aug 2022 – Present</span></div>
-              <div class="row"><strong>Asian Student Union · Member</strong><span class="when">Aug 2022 – Present</span></div>
-              <div class="row"><strong>Genre Music Club · Member</strong><span class="when">Aug 2021 – May 2023</span></div>
-              <div class="row"><strong>Hip Hop Club (Dub H) · Member</strong><span class="when">Aug 2021 – Dec 2021</span></div>
-            </div>
-          </div>
-
-          <div class="pdf">
-            <div class="bar"><span class="label">Christopher_Cross_Resume.pdf</span><a class="label" href="assets/Christopher_Cross_Resume.pdf" target="_blank" rel="noopener" style="color:var(--ink)">Open ↗</a></div>
-            <object data="assets/Christopher_Cross_Resume.pdf#view=FitH" type="application/pdf" aria-label="Résumé PDF">
-              <p style="padding:20px">Your browser can't show the PDF inline. <a href="assets/Christopher_Cross_Resume.pdf">Download it here.</a></p>
-            </object>
-          </div>
-        </div>
-      </section>
+      <div class="pdf rv">
+        <object data="assets/Christopher_Cross_Resume.pdf#view=FitH&amp;toolbar=0" type="application/pdf" aria-label="Christopher Cross résumé">
+          <p>Your browser can't display the PDF here. <a href="assets/Christopher_Cross_Resume.pdf" download>Download the résumé.</a></p>
+        </object>
+      </div>
+      <div class="dl">
+        <a class="link" href="assets/Christopher_Cross_Resume.pdf" download>Download résumé (PDF) ↓</a>
+      </div>
     </div>
   </main>
 
@@ -143,7 +64,7 @@
     <div class="tb-cells">
       <div class="tb-cell"><span class="label">Engineer</span><span>Christopher Cross</span></div>
       <div class="tb-cell"><span class="label">Sheet</span><span>IV / VIII · Résumé</span></div>
-      <div class="tb-cell"><span class="label">Format</span><span>HTML + PDF</span></div>
+      <div class="tb-cell"><span class="label">Format</span><span>PDF</span></div>
       <div class="tb-cell"><span class="label">Contact</span><span>cmartincross@gmail.com</span></div>
       <div class="tb-cell"><span class="label">Rev</span><span>A · 2026</span></div>
     </div>
