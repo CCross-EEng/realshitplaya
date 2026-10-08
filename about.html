@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About — Chris Cross</title>
+  <meta name="description" content="About Christopher Cross: electrical engineering student at Iowa State University focused on control systems.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23000'/%3E%3Crect x='8' y='8' width='16' height='16' fill='none' stroke='%23fff' stroke-width='2'/%3E%3Cpath d='M12 8V4M16 8V4M20 8V4M12 24v4M16 24v4M20 24v4M8 12H4M8 16H4M8 20H4M24 12h4M24 16h4M24 20h4' stroke='%23fff' stroke-width='1.6'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100;200;300;400;500&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); border: 1px solid var(--line); }
+    .fact { padding: 20px 22px 22px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); margin: 0 -1px -1px 0; }
+    .fact .label { display: block; margin-bottom: 10px; }
+    .fact p { margin: 0; color: var(--ink-2); font-size: 15px; }
+    .fact b { display: block; font-weight: 300; font-size: 20px; color: var(--ink); letter-spacing: -0.01em; margin-bottom: 4px; }
+
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); border: 1px solid var(--line); }
+    .contact-grid a, .contact-grid div {
+      display: block; padding: 26px 24px; text-decoration: none;
+      border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); margin: 0 -1px -1px 0;
+      transition: background .25s;
+    }
+    .contact-grid a:hover { background: rgba(255,255,255,.04); }
+    .contact-grid .label { display: block; margin-bottom: 12px; }
+    .contact-grid strong { display: block; font-weight: 200; font-size: clamp(20px, 2vw, 28px); letter-spacing: -0.02em; overflow-wrap: anywhere; }
+    .big-quote { margin: 0 0 1em; font-weight: 200; font-size: clamp(26px, 3vw, 40px); line-height: 1.2; letter-spacing: -0.02em; color: var(--ink); max-width: 28ch; }
+  </style>
+</head>
+<body class="graph">
+  <svg class="pcb-side" data-seed="3" aria-hidden="true"></svg>
+  <div class="frame" aria-hidden="true">
+    <div class="zones-x"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span></div>
+    <div class="zones-y"><span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span></div>
+  </div>
+
+  <header class="topbar">
+    <a class="brand" href="index.html"><b>CC</b> <span>/</span> Portfolio</a>
+    <nav class="topnav" aria-label="Sections">
+      <a class="always" href="index.html#contents"><span class="num">00</span>index</a>
+      <a href="about.html" aria-current="page"><span class="num">I</span>about</a>
+      <a href="senior-design.html"><span class="num">II</span>senior design</a>
+      <a href="projects.html"><span class="num">III</span>projects</a>
+      <a href="resume.html"><span class="num">IV</span>résumé</a>
+      <a href="reflections.html"><span class="num">V–VI</span>reflections</a>
+      <a href="ethics.html"><span class="num">VII</span>ethics</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ===== Welcome ===== -->
+    <section class="opener">
+      <p class="eyebrow intro">Sheet I · About</p>
+      <h1 class="intro d1"><span class="paren">(</span> hello <span class="paren">)</span></h1>
+      <p class="lede intro d2">
+        I'm <em>Chris Cross</em>, an Electrical Engineering student at Iowa State University with a minor in Mathematics, graduating in May 2027.
+        Welcome to my portfolio. Most of what you'll find here lives where math meets moving hardware: modeling a system, designing the feedback that
+        keeps it stable, and then proving it works on the real thing.
+      </p>
+    </section>
+
+    <div class="sheet">
+      <section class="block rv" aria-labelledby="at-a-glance">
+        <div class="block-head">
+          <span class="tag">01 · At a glance</span>
+          <h2 id="at-a-glance">The short version</h2>
+        </div>
+        <div class="facts">
+          <div class="fact"><span class="label">Degree</span><b>B.S. Electrical Engineering</b><p>Iowa State University · Minor in Mathematics</p></div>
+          <div class="fact"><span class="label">Graduation</span><b>May 2027</b><p>Anticipated</p></div>
+          <div class="fact"><span class="label">Focus</span><b>Control systems</b><p>State-space design, PID tuning, real-time control, industrial automation</p></div>
+          <div class="fact"><span class="label">Coursework</span><b>Controls core</b><p>Linear Systems, Automatic Control Systems, Control System Simulation, Signals &amp; Systems, Embedded Systems</p></div>
+          <div class="fact"><span class="label">Tools</span><b>MATLAB · Simulink</b><p>QUARC, Python, C, Studio 5000 ladder logic</p></div>
+          <div class="fact"><span class="label">Involvement</span><b>Campus clubs</b><p>Vietnamese Student Association, Asian Student Union, Genre Music Club, Dub H</p></div>
+        </div>
+      </section>
+
+      <!-- ===== Career objective ===== -->
+      <section class="block rv" id="objective" aria-labelledby="objective-h">
+        <div class="block-head">
+          <span class="tag">02 · Career objective</span>
+          <h2 id="objective-h">Where I'm headed</h2>
+        </div>
+        <div class="split">
+          <div class="spacer"></div>
+          <div class="prose">
+            <span class="todo">Draft written from Chris's résumé and lab work. Chris should rewrite this in his own voice: the rubric asks for his thoughts about his future goals, not a résumé objective.</span>
+            <p class="big-quote">I want to build the systems that keep other systems steady.</p>
+            <p>
+              The first time our balance controller caught the rotary pendulum and held it upright, it clicked for me that control engineering is
+              where the math stops being abstract. A pole in the right half-plane is a pendulum falling over; moving that pole is what keeps it standing.
+              I want a career built around that feeling: taking something that wants to be unstable and making it dependable.
+            </p>
+            <p>
+              Right now I'm most drawn to <strong>controls and automation engineering</strong>: designing and tuning feedback loops for motion systems,
+              robotics and aerial vehicles, and programming the PLCs that run real production lines. Working on a GuardLogix cell showed me how much of
+              industry depends on logic that has to be correct and safe every single cycle.
+            </p>
+            <p>
+              After graduation I'd like to join a team where I can learn from experienced controls engineers, take ownership of real hardware, and keep
+              building depth in modeling, estimation and embedded implementation. Longer term, I want to grow into an engineer who can carry a system
+              from first equations to commissioning, and who explains it clearly to the people who rely on it.
+            </p>
+          </div>
+          <figure class="fig sticky rv-draw" aria-label="Unity feedback loop">
+            <svg class="sch" viewBox="0 0 360 220">
+              <path class="draw-sc" pathLength="1" d="M20 90 H86"/>
+              <circle class="draw-sc" pathLength="1" cx="100" cy="90" r="14"/>
+              <path class="draw-sc" pathLength="1" d="M114 90 H150"/>
+              <rect class="draw-sc" pathLength="1" x="150" y="62" width="80" height="56"/>
+              <path class="draw-sc" pathLength="1" d="M230 90 H340"/>
+              <path class="draw-sc" pathLength="1" d="M290 90 V170 H100 V104"/>
+              <circle class="fill" cx="290" cy="90" r="3"/>
+              <text x="20" y="80">today</text>
+              <text x="276" y="80">career</text>
+              <text class="big" x="174" y="98">C</text>
+              <text class="small" x="116" y="186">feedback: mentors, projects, reflection</text>
+              <text x="88" y="78">+</text><text x="104" y="118">−</text>
+            </svg>
+            <figcaption><span>Fig. I-1</span><span>Closing the loop</span></figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- ===== Contact ===== -->
+      <section class="block rv" id="contact" aria-labelledby="contact-h">
+        <div class="block-head">
+          <span class="tag">03 · Contact</span>
+          <h2 id="contact-h">Get in touch</h2>
+        </div>
+        <div class="contact-grid">
+          <a href="mailto:cmartincross@gmail.com"><span class="label">Email</span><strong>cmartincross@gmail.com</strong></a>
+          <a href="tel:+12243088086"><span class="label">Phone</span><strong>(224) 308-8086</strong></a>
+          <div><span class="label">Location</span><strong>South Elgin, IL · Ames, IA</strong></div>
+          <a href="https://github.com/CCross-EEng" target="_blank" rel="noopener"><span class="label">GitHub ↗</span><strong>CCross-EEng</strong></a>
+          <div><span class="label">LinkedIn</span><strong><span class="todo inline">add LinkedIn URL</span></strong></div>
+          <a href="resume.html"><span class="label">Résumé</span><strong>View or download →</strong></a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="titleblock">
+    <nav class="tb-nav" aria-label="Previous and next">
+      <a href="index.html#contents"><span class="label">← Previous</span><strong>Index</strong></a>
+      <a href="senior-design.html"><span class="label">Next →</span><strong>II · Senior Design</strong></a>
+    </nav>
+    <div class="tb-cells">
+      <div class="tb-cell"><span class="label">Engineer</span><span>Christopher Cross</span></div>
+      <div class="tb-cell"><span class="label">Sheet</span><span>I / VIII · About</span></div>
+      <div class="tb-cell"><span class="label">Program</span><span>B.S. EE · Iowa State</span></div>
+      <div class="tb-cell"><span class="label">Contact</span><span>cmartincross@gmail.com</span></div>
+      <div class="tb-cell"><span class="label">Rev</span><span>A · 2026</span></div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+  <script src="js/pcb.js"></script>
+  <script src="js/side.js"></script>
+  <script src="js/common.js"></script>
+</body>
+</html>

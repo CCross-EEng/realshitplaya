@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Résumé — Chris Cross</title>
+  <meta name="description" content="Résumé of Christopher Cross, B.S. Electrical Engineering, Iowa State University.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23000'/%3E%3Crect x='8' y='8' width='16' height='16' fill='none' stroke='%23fff' stroke-width='2'/%3E%3Cpath d='M12 8V4M16 8V4M20 8V4M12 24v4M16 24v4M20 24v4M8 12H4M8 16H4M8 20H4M24 12h4M24 16h4M24 20h4' stroke='%23fff' stroke-width='1.6'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100;200;300;400;500&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .cv-grid { display: grid; gap: clamp(28px, 4vw, 64px); grid-template-columns: minmax(0, 1fr); }
+    @media (min-width: 1100px) { .cv-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); } }
+    .row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 18px; padding: 16px 0; border-top: 1px dashed var(--line); }
+    .row:first-of-type { border-top: 0; padding-top: 0; }
+    .row strong { font-weight: 400; color: var(--ink); }
+    .row .when { font: 400 11px/1.8 var(--mono); color: var(--muted); letter-spacing: .06em; text-align: right; }
+    .row .sub { grid-column: 1 / -1; color: var(--ink-2); font-size: 15px; }
+    .row ul { grid-column: 1 / -1; margin: 4px 0 0; padding: 0; list-style: none; color: var(--ink-2); font-size: 15px; }
+    .row li { position: relative; padding-left: 20px; margin-bottom: .35em; }
+    .row li::before { content: ''; position: absolute; left: 0; top: .78em; width: 10px; height: 1px; background: var(--ink-2); }
+    .cv-sec { margin-bottom: 44px; }
+    .cv-sec > .label { display: block; padding-bottom: 12px; margin-bottom: 18px; border-bottom: 1px solid var(--line-2); color: var(--ink-2); }
+    .skills { display: grid; gap: 14px; }
+    .skills div { display: grid; grid-template-columns: 1fr; gap: 6px; }
+    @media (min-width: 640px) { .skills div { grid-template-columns: 170px 1fr; } }
+    .skills .label { line-height: 1.9; }
+    .skills p { margin: 0; color: var(--ink-2); font-size: 15px; }
+    .pdf { border: 1px solid var(--line); background: var(--bg-2); }
+    .pdf object, .pdf iframe { display: block; width: 100%; height: min(1100px, 130vw); border: 0; background: #fff; }
+    .pdf .bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 14px; border-bottom: 1px solid var(--line); }
+    @media (min-width: 1100px) { .pdf { position: sticky; top: 100px; } .pdf object { height: calc(100vh - 170px); } }
+  </style>
+</head>
+<body class="graph">
+  <svg class="pcb-side" data-seed="31" aria-hidden="true"></svg>
+  <div class="frame" aria-hidden="true">
+    <div class="zones-x"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span></div>
+    <div class="zones-y"><span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span></div>
+  </div>
+
+  <header class="topbar">
+    <a class="brand" href="index.html"><b>CC</b> <span>/</span> Portfolio</a>
+    <nav class="topnav" aria-label="Sections">
+      <a class="always" href="index.html#contents"><span class="num">00</span>index</a>
+      <a href="about.html"><span class="num">I</span>about</a>
+      <a href="senior-design.html"><span class="num">II</span>senior design</a>
+      <a href="projects.html"><span class="num">III</span>projects</a>
+      <a href="resume.html" aria-current="page"><span class="num">IV</span>résumé</a>
+      <a href="reflections.html"><span class="num">V–VI</span>reflections</a>
+      <a href="ethics.html"><span class="num">VII</span>ethics</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="opener">
+      <p class="eyebrow intro">Sheet IV · Curriculum vitae</p>
+      <h1 class="intro d1"><span class="paren">(</span> résumé <span class="paren">)</span></h1>
+      <div class="links intro d2" style="margin-top:34px">
+        <a class="link" href="assets/Christopher_Cross_Resume.pdf" download>Download PDF ↓</a>
+        <a class="link ghost" href="assets/Christopher_Cross_Resume.pdf" target="_blank" rel="noopener">Open in new tab ↗</a>
+      </div>
+    </section>
+
+    <div class="sheet">
+      <section class="block rv" aria-label="Résumé">
+        <div class="cv-grid">
+          <div>
+            <div class="cv-sec">
+              <span class="label">Education</span>
+              <div class="row">
+                <strong>Iowa State University · Ames, IA</strong><span class="when">Anticipated May 2027</span>
+                <span class="sub">Bachelor of Science in Electrical Engineering, Minor in Mathematics · GPA 3.0 / 4.0</span>
+                <span class="sub">Relevant coursework: Linear Systems, Automatic Control Systems, Control System Simulation, Signals &amp; Systems, Embedded Systems</span>
+              </div>
+            </div>
+
+            <div class="cv-sec">
+              <span class="label">Technical skills</span>
+              <div class="skills">
+                <div><span class="label">Software &amp; analysis</span><p>MATLAB, Simulink, QUARC, Python, C, state-space modeling, pole placement, least-squares estimation</p></div>
+                <div><span class="label">Industrial control</span><p>Studio 5000, ladder logic, Allen-Bradley Compact GuardLogix PLC, safety I/O (DCS), counters and timers</p></div>
+                <div><span class="label">Controls &amp; hardware</span><p>PID tuning, Quanser SRV02 servo platform, Crazyflie quadcopter, Arduino, inductive / IR / capacitive / proximity sensors, solenoid actuators</p></div>
+              </div>
+            </div>
+
+            <div class="cv-sec">
+              <span class="label">Projects</span>
+              <div class="row"><strong><a href="projects.html#pendulum">Rotary Inverted Pendulum Control</a></strong><span class="when">Spring 2026</span><span class="sub">State-space model, pole-placement balance control and energy-based swing-up on Quanser hardware.</span></div>
+              <div class="row"><strong><a href="projects.html#quadcopter">Quadcopter Stabilization &amp; Navigation</a></strong><span class="when">Spring 2026</span><span class="sub">Least-squares parameter estimation, PID tuning under 10% overshoot, waypoint flight and obstacle avoidance.</span></div>
+              <div class="row"><strong><a href="projects.html#plc">PLC Factory Automation Cell</a></strong><span class="when">Spring 2026</span><span class="sub">Ladder logic for a sort / assemble / reject conveyor cell with a dual-channel E-stop.</span></div>
+              <div class="row"><strong><a href="projects.html#cmos">CyMOS CMOS Fabrication Process</a></strong><span class="when">In progress</span><span class="sub">Six-mask cleanroom CMOS process: oxidation, diffusion, lithography, e-beam metal.</span></div>
+            </div>
+
+            <div class="cv-sec">
+              <span class="label">Work experience</span>
+              <div class="row">
+                <strong>Iowa State University, Tech Lending · Student Employee</strong><span class="when">Dec 2022 – Feb 2023</span>
+                <ul>
+                  <li>Managed technology equipment inventory, handling checkouts and returns for a fluctuating volume of student customers.</li>
+                  <li>Explained technology options in non-technical terms and coordinated with coworkers through high-traffic periods.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="cv-sec">
+              <span class="label">Research &amp; publications</span>
+              <span class="todo">None listed yet. Add any undergraduate research, conference posters or papers here.</span>
+            </div>
+
+            <div class="cv-sec">
+              <span class="label">Awards &amp; honors</span>
+              <span class="todo">Add scholarships, Dean's List semesters or other recognition.</span>
+            </div>
+
+            <div class="cv-sec">
+              <span class="label">Leadership &amp; activities</span>
+              <div class="row"><strong>Vietnamese Student Association · Member</strong><span class="when">Aug 2022 – Present</span></div>
+              <div class="row"><strong>Asian Student Union · Member</strong><span class="when">Aug 2022 – Present</span></div>
+              <div class="row"><strong>Genre Music Club · Member</strong><span class="when">Aug 2021 – May 2023</span></div>
+              <div class="row"><strong>Hip Hop Club (Dub H) · Member</strong><span class="when">Aug 2021 – Dec 2021</span></div>
+            </div>
+          </div>
+
+          <div class="pdf">
+            <div class="bar"><span class="label">Christopher_Cross_Resume.pdf</span><a class="label" href="assets/Christopher_Cross_Resume.pdf" target="_blank" rel="noopener" style="color:var(--ink)">Open ↗</a></div>
+            <object data="assets/Christopher_Cross_Resume.pdf#view=FitH" type="application/pdf" aria-label="Résumé PDF">
+              <p style="padding:20px">Your browser can't show the PDF inline. <a href="assets/Christopher_Cross_Resume.pdf">Download it here.</a></p>
+            </object>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="titleblock">
+    <nav class="tb-nav" aria-label="Previous and next">
+      <a href="projects.html"><span class="label">← Previous</span><strong>III · Projects</strong></a>
+      <a href="reflections.html"><span class="label">Next →</span><strong>V · Reflections</strong></a>
+    </nav>
+    <div class="tb-cells">
+      <div class="tb-cell"><span class="label">Engineer</span><span>Christopher Cross</span></div>
+      <div class="tb-cell"><span class="label">Sheet</span><span>IV / VIII · Résumé</span></div>
+      <div class="tb-cell"><span class="label">Format</span><span>HTML + PDF</span></div>
+      <div class="tb-cell"><span class="label">Contact</span><span>cmartincross@gmail.com</span></div>
+      <div class="tb-cell"><span class="label">Rev</span><span>A · 2026</span></div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+  <script src="js/pcb.js"></script>
+  <script src="js/side.js"></script>
+  <script src="js/common.js"></script>
+</body>
+</html>

@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projects — Chris Cross</title>
+  <meta name="description" content="Control systems projects by Christopher Cross: rotary inverted pendulum, quadcopter stabilization, PLC automation cell and CMOS fabrication.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23000'/%3E%3Crect x='8' y='8' width='16' height='16' fill='none' stroke='%23fff' stroke-width='2'/%3E%3Cpath d='M12 8V4M16 8V4M20 8V4M12 24v4M16 24v4M20 24v4M8 12H4M8 16H4M8 20H4M24 12h4M24 16h4M24 20h4' stroke='%23fff' stroke-width='1.6'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100;200;300;400;500&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .pindex { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); border: 1px solid var(--line); margin-bottom: clamp(30px, 6vh, 70px); }
+    .pindex a { display: flex; flex-direction: column; gap: 10px; padding: 22px 22px 24px; text-decoration: none; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); margin: 0 -1px -1px 0; transition: background .25s; }
+    .pindex a:hover { background: rgba(255,255,255,.04); }
+    .pindex .n { font: 400 11px/1 var(--mono); color: var(--faint); letter-spacing: .12em; }
+    .pindex strong { font-weight: 300; font-size: 21px; letter-spacing: -0.01em; line-height: 1.2; }
+    .pindex span.s { font: 400 10px/1.5 var(--mono); color: var(--muted); letter-spacing: .1em; text-transform: uppercase; }
+    .soft { margin-top: .6em; color: var(--muted); font-size: 15px; }
+    .soft b { font: 400 10px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); margin-right: 8px; }
+    .lad text { font-size: 9px; }
+  </style>
+</head>
+<body class="graph">
+  <svg class="pcb-side" data-seed="23" aria-hidden="true"></svg>
+  <div class="frame" aria-hidden="true">
+    <div class="zones-x"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span></div>
+    <div class="zones-y"><span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span></div>
+  </div>
+
+  <header class="topbar">
+    <a class="brand" href="index.html"><b>CC</b> <span>/</span> Portfolio</a>
+    <nav class="topnav" aria-label="Sections">
+      <a class="always" href="index.html#contents"><span class="num">00</span>index</a>
+      <a href="about.html"><span class="num">I</span>about</a>
+      <a href="senior-design.html"><span class="num">II</span>senior design</a>
+      <a href="projects.html" aria-current="page"><span class="num">III</span>projects</a>
+      <a href="resume.html"><span class="num">IV</span>résumé</a>
+      <a href="reflections.html"><span class="num">V–VI</span>reflections</a>
+      <a href="ethics.html"><span class="num">VII</span>ethics</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="opener">
+      <p class="eyebrow intro">Sheet III · Course &amp; lab projects</p>
+      <h1 class="intro d1"><span class="paren">(</span> projects <span class="paren">)</span></h1>
+      <p class="lede intro d2">
+        Four builds that run from <em>equations to hardware</em>: an unstable pendulum held upright by state feedback, a quadcopter tuned to
+        fly a trajectory, a PLC cell sorting and assembling parts on a live conveyor, and a CMOS wafer fabricated in a cleanroom.
+      </p>
+    </section>
+
+    <div class="sheet">
+      <nav class="pindex rv" aria-label="Project index">
+        <a href="#pendulum"><span class="n">III.a</span><strong>Rotary Inverted Pendulum Control</strong><span class="s">MATLAB · Simulink · QUARC</span></a>
+        <a href="#quadcopter"><span class="n">III.b</span><strong>Quadcopter Stabilization &amp; Navigation</strong><span class="s">MATLAB · Python · Crazyflie</span></a>
+        <a href="#plc"><span class="n">III.c</span><strong>PLC Factory Automation Cell</strong><span class="s">Studio 5000 · GuardLogix</span></a>
+        <a href="#cmos"><span class="n">III.d</span><strong>CyMOS CMOS Fabrication</strong><span class="s">Cleanroom · Lithography</span></a>
+      </nav>
+
+      <!-- =================== III.a Pendulum =================== -->
+      <section class="block rv" id="pendulum" aria-labelledby="p1">
+        <div class="block-head">
+          <span class="tag">III.a · Spring 2026</span>
+          <h2 id="p1">Rotary Inverted Pendulum Control</h2>
+          <div class="meta">
+            <span class="chip">EE 4760 · Control System Simulation</span>
+            <span class="chip">MATLAB</span><span class="chip">Simulink</span><span class="chip">QUARC</span><span class="chip">Quanser SRV02</span>
+          </div>
+        </div>
+        <div class="split">
+          <div>
+            <dl class="fields">
+              <div class="field">
+                <dt>Description</dt>
+                <dd>
+                  <p>A three-lab sequence that takes a Quanser rotary inverted pendulum from a blank model to a working swing-up-and-balance controller.
+                  We derived a four-state state-space model (arm angle θ, pendulum angle α and their rates) from the physical and actuator parameters.
+                  The open-loop poles came out with one in the right half-plane, which confirmed the upright pendulum is unstable on its own.</p>
+                  <p>After confirming controllability (the 4×4 controllability matrix has full rank), we designed a state-feedback gain <em class="serif">K</em> by pole
+                  placement through a companion-form transformation. The desired poles were −2.8 ± j2.86, −30 and −40, and we checked the result against
+                  MATLAB's <code>place</code> routine. We simulated the controller in Simulink, then compiled it with QUARC to run in real time on the hardware.
+                  Switch logic engages balance control only near upright. The final lab added an energy-based swing-up controller that pumps the
+                  pendulum up from hanging and hands off cleanly to the balance controller.</p>
+                </dd>
+              </div>
+              <div class="field">
+                <dt>My role</dt>
+                <dd>
+                  <p>Member of a lab team with Drew Bixler, Alex Kopeny and Alex Hardcopf (the swing-up lab was a combined six-person section). I worked through the modeling,
+                  pole-placement design, Simulink simulation and hardware runs with the team. I wrote the sign-convention verification for the model
+                  lab, confirming that counter-clockwise arm and pendulum rotation read positive on the encoders, matching the math model.</p>
+                  <span class="todo">Chris: add the specific parts you owned (e.g. which scripts, subsystems or tuning runs you led).</span>
+                </dd>
+              </div>
+              <div class="field">
+                <dt>Skills &amp; knowledge</dt>
+                <dd>
+                  <ul>
+                    <li>State-space modeling of a nonlinear electromechanical system, and reading stability from open-loop poles</li>
+                    <li>Controllability analysis, companion-form transformation and pole placement</li>
+                    <li>Validating a model against hardware: sign conventions, a Direct Convention gain fix, simulation vs. measured response</li>
+                    <li>Real-time deployment with Simulink + QUARC and the switching logic between controllers</li>
+                    <li>Energy-based swing-up control: measured potential energy 0.4193 J vs. 0.4199 J predicted</li>
+                  </ul>
+                  <p class="soft"><b>Soft</b>Splitting work across a lab team, iterating patiently over several sessions, documenting results against specs.</p>
+                </dd>
+              </div>
+              <div class="field">
+                <dt>Resources used</dt>
+                <dd>
+                  <ul>
+                    <li>Quanser SRV02 rotary servo with the rotary pendulum module, power amplifier and encoders</li>
+                    <li>MATLAB (<code>setup_rotpen.m</code>, pole-placement scripts), Simulink, QUARC real-time</li>
+                    <li>Quanser module lab manual, course lectures and the lab TA</li>
+                  </ul>
+                </dd>
+              </div>
+              <div class="field">
+                <dt>Supporting docs</dt>
+                <dd><div class="links"><a class="link" href="docs/EE4760_Rotary_Pendulum_Labs_4-6.pdf" target="_blank" rel="noopener">Lab reports 4–6 (PDF) ↗</a></div></dd>
+              </div>
+            </dl>
+            <div class="specs">
+              <div class="spec"><b>8.34°</b><span>Peak deflection · spec 15°</span></div>
+              <div class="spec"><b>4.28 V</b><span>Peak motor voltage · limit 10 V</span></div>
+              <div class="spec"><b>0.14%</b><span>PE measured vs. predicted</span></div>
+              <div class="spec"><b>4</b><span>States · rank-4 controllable</span></div>
+            </div>
+          </div>
+          <figure class="fig sticky rv-draw" aria-label="Rotary inverted pendulum and closed-loop pole locations">
+            <svg class="sch" viewBox="0 0 360 300">
+              <!-- base + servo -->
+              <path class="draw-sc" pathLength="1" d="M30 250 H190"/>
+              <rect class="draw-sc" pathLength="1" x="80" y="210" width="60" height="40"/>
+              <path class="draw-sc" pathLength="1" d="M110 210 V196"/>
+              <ellipse class="draw-sc" pathLength="1" cx="110" cy="196" rx="62" ry="12"/>
+              <circle class="fill" cx="168" cy="200" r="3"/>
+              <path class="draw-sc" pathLength="1" d="M168 200 L182 72"/>
+              <circle class="draw-sc" pathLength="1" cx="182" cy="72" r="6"/>
+              <path class="dim dash" d="M168 200 V60"/>
+              <path class="thin" d="M168 130 A70 70 0 0 1 176 130.5"/>
+              <text class="big" x="180" y="140">α</text>
+              <path class="thin" d="M60 214 A55 14 0 0 1 48 200"/>
+              <text class="big" x="30" y="222">θ</text>
+              <text class="small" x="78" y="268">SRV02 SERVO</text>
+              <text class="small" x="196" y="200">ENCODER</text>
+              <!-- s-plane -->
+              <g transform="translate(220 40)">
+                <rect class="dim" x="0" y="0" width="124" height="110"/>
+                <path class="thin" d="M8 55 H118 M100 8 V102"/>
+                <text class="small" x="104" y="16">jω</text>
+                <text class="small" x="110" y="68">σ</text>
+                <path d="M84 33 l6 6 M90 33 l-6 6 M84 71 l6 6 M90 71 l-6 6 M28 52 l6 6 M34 52 l-6 6 M12 52 l6 6 M18 52 l-6 6"/>
+                <path class="thin" d="M112 51 l6 8 M118 51 l-6 8"/>
+                <text class="small" x="0" y="124">PLACED POLES</text>
+                <text class="small" x="0" y="137">−2.8 ± j2.86 · −30 · −40</text>
+              </g>
+            </svg>
+            <figcaption><span>Fig. III-a</span><span>Plant + placed poles</span></figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- =================== III.b Quadcopter =================== -->
+      <section class="block rv" id="quadcopter" aria-labelledby="p2">
+        <div class="block-head">
+          <span class="tag">III.b · Spring 2026</span>
+          <h2 id="p2">Quadcopter Stabilization &amp; Navigation</h2>
+          <div class="meta">
+            <span class="chip">EE 4760 · Control System Simulation</span>
+            <span class="chip">MATLAB</span><span class="chip">Python</span><span class="chip">Crazyflie</span><span class="chip">PID</span>
+          </div>
+        </div>
+        <div class="split">
+          <div>
+            <dl class="fields">
+              <div class="field">
+                <dt>Description</dt>
+                <dd>
+                  <p>Two labs on a Bitcraze Crazyflie nano-quadcopter. First, parameter estimation: we flew a scripted routine, logged 19 states
+                  (position, velocity, Euler angles and rates, accelerations and the four rotor speeds), mapped rotor PWM to angular velocity
+                  (ω = 0.04 · PWM) and built a least-squares estimate in MATLAB to recover the moments of inertia and the thrust and drag coefficients. A sixth
+                  parameter, rotor inertia <em class="serif">I<sub>r</sub></em>, came out at about −1.1 × 10⁻⁷, which confirmed it is negligible in the flight model.</p>
+                  <p>Second, navigation: we tuned PID gains on the x, y and z axes to keep step-response overshoot under 10% (z: K<sub>p</sub> = 2, K<sub>i</sub> = 0.5, K<sub>d</sub> = 0),
+                  then flew a multi-waypoint trajectory. To probe stability limits we raised K<sub>p</sub> by one, and the quad destabilized and crashed almost immediately.
+                  Raising K<sub>d</sub> by 0.3 still tracked, but the flight was choppier. Finally we configured proximity-sensor obstacle avoidance in Python,
+                  setting the trigger distance and retreat velocity.</p>
+                </dd>
+              </div>
+              <div class="field">
+                <dt>My role</dt>
+                <dd>
+                  <p>Member of a four-person team with Drew, Alex H and Alex K. I worked across the flight script, the MATLAB least-squares
+                  estimation and the gain tuning and avoidance tests. The team also changed the flight script to add a slow ascent and descent so
+                  the quad landed gently instead of cutting out mid-air.</p>
+                  <span class="todo">Chris: name the pieces you personally drove (e.g. LSE matrix setup, tuning runs, obstacle-avoidance parameters).</span>
+                </dd>
+              </div>
+              <div class="field">
+                <dt>Skills &amp; knowledge</dt>
+                <dd>
+                  <ul>
+                    <li>System identification by least-squares regression (<em class="serif">A·N = Y</em>) from logged flight data</li>
+                    <li>Finite-difference estimation of angular accelerations (T = 0.1 s sampling)</li>
+                    <li>Practical PID tuning against an overshoot spec, and seeing first-hand how sensitive stability is to K<sub>p</sub> vs. K<sub>d</sub></li>
+                    <li>Reading and modifying flight-control Python, and safe hardware test practices</li>
+                  </ul>
+                  <p class="soft"><b>Soft</b>Debugging hardware under time pressure (propellers, battery rotation), team communication, test planning.</p>
+                </dd>
+              </div>
+              <div class="field">
+                <dt>Resources used</dt>
+                <dd>
+                  <ul>
+                    <li>Bitcraze Crazyflie quadcopter, Crazyradio dongle, onboard proximity sensors</li>
+                    <li>Python flight scripts and PID tuning interface, MATLAB for data and regression</li>
+                    <li>Lab manual, padded flight area, course TA</li>
+                  </ul>
+                </dd>
+              </div>
+              <div class="field">
+                <dt>Supporting docs</dt>
+                <dd><div class="links"><a class="link" href="docs/EE4760_Quadcopter_Labs_7-8.pdf" target="_blank" rel="noopener">Lab reports 7–8 (PDF) ↗</a></div></dd>
+              </div>
+            </dl>
+            <div class="specs">
+              <div class="spec"><b>19</b><span>Logged flight states</span></div>
+              <div class="spec"><b>6</b><span>Parameters estimated</span></div>
+              <div class="spec"><b>&lt;10%</b><span>Step overshoot, all axes</span></div>
+              <div class="spec"><b>~10⁻⁷</b><span>Rotor inertia: negligible</span></div>
+            </div>
+          </div>
+          <figure class="fig sticky rv-draw" aria-label="Quadcopter top view with PID loop">
+            <svg class="sch" viewBox="0 0 360 300">
+              <g transform="translate(130 140)">
+                <path class="draw-sc" pathLength="1" d="M-70 -70 L70 70 M70 -70 L-70 70"/>
+                <rect class="draw-sc" pathLength="1" x="-18" y="-18" width="36" height="36"/>
+                <circle class="draw-sc" pathLength="1" cx="-70" cy="-70" r="30"/>
+                <circle class="draw-sc" pathLength="1" cx="70" cy="-70" r="30"/>
+                <circle class="draw-sc" pathLength="1" cx="-70" cy="70" r="30"/>
+                <circle class="draw-sc" pathLength="1" cx="70" cy="70" r="30"/>
+                <path class="thin" d="M-84 -92 A26 26 0 0 1 -48 -84 M84 -92 A26 26 0 0 0 48 -84 M-84 92 A26 26 0 0 0 -48 84 M84 92 A26 26 0 0 1 48 84"/>
+                <text x="-76" y="-66">ω1</text><text x="64" y="-66">ω2</text><text x="64" y="74">ω3</text><text x="-76" y="74">ω4</text>
+                <path class="thin" d="M0 0 H110 M0 0 V-110"/>
+                <text class="small" x="112" y="4">x</text><text class="small" x="4" y="-112">y</text>
+              </g>
+              <g transform="translate(240 230)">
+                <rect class="dim" x="0" y="0" width="104" height="54"/>
+                <text class="small" x="8" y="16">PID · x / y / z</text>
+                <text class="small" x="8" y="32">Kp 2 · Ki 0.5 · Kd 0</text>
+                <text class="small" x="8" y="46">OS &lt; 10%</text>
+              </g>
+            </svg>
+            <figcaption><span>Fig. III-b</span><span>Crazyflie · X configuration</span></figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- =================== III.c PLC =================== -->
+      <section class="block rv" id="plc" aria-labelledby="p3">
+        <div class="block-head">
+          <span class="tag">III.c · Spring 2026</span>
+          <h2 id="p3">PLC Factory Automation Cell</h2>
+          <div class="meta">
+            <span class="chip">EE 4760 · Control System Simulation</span>
+            <span class="chip">Studio 5000</span><span class="chip">Ladder logic</span><span class="chip">Compact GuardLogix 5069-L320ERS2</span>
+          </div>
+        </div>
+        <div class="split">
+          <div>
+            <dl class="fields">
+              <div class="field">
+                <dt>Description</dt>
+                <dd>
+                  <p>A three-lab build of a conveyor cell that sorts parts, assembles them and rejects anything incomplete, all programmed in ladder logic
+                  on an Allen-Bradley Compact GuardLogix safety PLC. We mapped 17 standard and safety I/O points between the sensors and the solenoid
+                  actuators, then built a latched start/stop circuit for the belt and chain conveyors.</p>
+                  <p>The sorting logic latches inductive and IR-reflective sensor states, so plastic rings are kicked into a hopper while metal pegs pass through.
+                  Up/down counters track the hopper queue and hold it to five rings. A rotary solenoid loads one ring at a time to meet a passing peg.
+                  At the discharge, a one-shot plus a capacitive sensor latch an "assembled" bit, and the reject solenoid fires only on lone pegs or rings.
+                  A dual-channel (DCS) emergency stop latches the conveyors off until the E-stop is released and the reset button is pressed.</p>
+                </dd>
+              </div>
+              <div class="field">
+                <dt>My role</dt>
+                <dd>
+                  <p>Member of a four-person team with Alex H, Alex K and Drew, programming and testing the rungs on the live cell.
+                  One problem we solved: the hopper count incremented before the solenoid had physically kicked the ring, so the queue capped at four.
+                  A one-second timer delaying the count fixed it, and the same delay made the rotary-solenoid logic fire at the right time.
+                  For reject handling we chose latch logic over a full FIFO, then tested that it couldn't misfire on the line.</p>
+                  <span class="todo">Chris: note which rungs or features you wrote or debugged yourself.</span>
+                </dd>
+              </div>
+              <div class="field">
+                <dt>Skills &amp; knowledge</dt>
+                <dd>
+                  <ul>
+                    <li>Ladder logic in Studio 5000: XIC/XIO contacts, latching, one-shots (OSF), CTU/CTD counters, TOF timers</li>
+                    <li>Standard vs. safety I/O, and dual-channel safety stops with the fault-present (FP) bit</li>
+                    <li>Diagnosing race conditions between logic scan timing and physical actuator motion</li>
+                    <li>Inductive, IR-reflective and capacitive sensing for part identification</li>
+                  </ul>
+                  <p class="soft"><b>Soft</b>Weighing a simpler design (latches) against a standard one (FIFO), demonstrating safety behaviour to a TA, iterative testing.</p>
+                </dd>
+              </div>
+              <div class="field">
+                <dt>Resources used</dt>
+                <dd>
+                  <ul>
+                    <li>Rockwell Studio 5000 Logix Designer; Allen-Bradley 5069-L320ERS2 Compact GuardLogix PLC</li>
+                    <li>Conveyor sorting and assembly trainer: belt and chain conveyors, sort, rotary and reject solenoids, sensors, E-stop</li>
+                    <li>In-class latch examples, lab manual, course TA</li>
+                  </ul>
+                </dd>
+              </div>
+              <div class="field">
+                <dt>Supporting docs</dt>
+                <dd><div class="links"><a class="link" href="docs/EE4760_PLC_Labs_9-11.pdf" target="_blank" rel="noopener">Lab reports 9–11 (PDF) ↗</a></div></dd>
+              </div>
+            </dl>
+            <div class="specs">
+              <div class="spec"><b>17</b><span>Standard + safety I/O points</span></div>
+              <div class="spec"><b>5</b><span>Ring queue capacity</span></div>
+              <div class="spec"><b>1 s</b><span>Delay that fixed the race</span></div>
+              <div class="spec"><b>DCS</b><span>Dual-channel E-stop</span></div>
+            </div>
+          </div>
+          <figure class="fig sticky rv-draw lad" aria-label="Ladder logic excerpt">
+            <svg class="sch" viewBox="0 0 360 320">
+              <path class="draw-sc" pathLength="1" d="M20 20 V300 M340 20 V300"/>
+              <!-- rung 1: start/stop seal-in with FP -->
+              <path class="draw-sc" pathLength="1" d="M20 50 H52 M68 50 H112 M128 50 H172 M188 50 H286 M314 50 H340"/>
+              <path d="M52 40 V60 M68 40 V60 M112 40 V60 M128 40 V60 M172 40 V60 M188 40 V60 M174 58 L186 42"/>
+              <path d="M290 40 A12 12 0 0 0 290 60 M310 40 A12 12 0 0 1 310 60"/>
+              <path class="thin" d="M36 50 V80 H52 M68 80 H96 V50 M52 70 V90 M68 70 V90"/>
+              <text x="44" y="34">START</text><text x="104" y="34">STOP</text><text x="164" y="34">FP</text><text x="272" y="34">CONVEYOR</text>
+              <text class="small" x="40" y="104">CONVEYOR (SEAL-IN)</text>
+              <!-- rung 2: metal latch -->
+              <path class="draw-sc" pathLength="1" d="M20 140 H52 M68 140 H132 M148 140 H286 M314 140 H340"/>
+              <path d="M52 130 V150 M68 130 V150 M132 130 V150 M148 130 V150"/>
+              <path d="M290 130 A12 12 0 0 0 290 150 M310 130 A12 12 0 0 1 310 150"/>
+              <path class="thin" d="M36 140 V170 H52 M68 170 H100 V140 M52 160 V180 M68 160 V180"/>
+              <text x="36" y="124">INDUCTIVE</text><text x="124" y="124">IR</text><text x="282" y="124">METAL</text>
+              <text class="small" x="48" y="194">METAL</text>
+              <!-- rung 3: sort solenoid -->
+              <path class="draw-sc" pathLength="1" d="M20 240 H52 M68 240 H122 M138 240 H192 M208 240 H286 M314 240 H340"/>
+              <path d="M52 230 V250 M68 230 V250 M54 248 L66 232 M122 230 V250 M138 230 V250 M192 230 V250 M208 230 V250 M194 248 L206 232"/>
+              <path d="M290 230 A12 12 0 0 0 290 250 M310 230 A12 12 0 0 1 310 250"/>
+              <text x="44" y="224">METAL</text><text x="118" y="224">IR</text><text x="172" y="224">HOP_FULL</text><text x="272" y="224">SORT_SOL</text>
+              <text class="small" x="24" y="290">RUNG LOGIC ABRIDGED · ] [ XIC · ]/[ XIO · ( ) OTE</text>
+            </svg>
+            <figcaption><span>Fig. III-c</span><span>Ladder excerpt · sort &amp; seal-in</span></figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- =================== III.d CMOS =================== -->
+      <section class="block rv" id="cmos" aria-labelledby="p4">
+        <div class="block-head">
+          <span class="tag">III.d · In progress</span>
+          <h2 id="p4">CyMOS CMOS Fabrication Process</h2>
+          <div class="meta">
+            <span class="chip"><span class="todo inline">course #</span></span>
+            <span class="chip">Cleanroom</span><span class="chip">Photolithography</span><span class="chip">Oxidation / diffusion</span><span class="chip">E-beam evaporation</span>
+          </div>
+        </div>
+        <div class="split">
+          <div>
+            <dl class="fields">
+              <div class="field">
+                <dt>Description</dt>
+                <dd>
+                  <p>Fabricating a working CMOS device wafer from bare silicon through a full six-mask cleanroom process: p-well, PMOS source/drain,
+                  NMOS source/drain, gate oxide, contact vias and metal. Every step is tracked on a process traveler alongside test-wafer measurements.</p>
+                  <p>Field and gate oxides are grown by wet and dry thermal oxidation. The p-well and both source/drain regions are formed by solid-source
+                  boron and phosphorus deposition followed by drive-in diffusion. Before each photolithography step, predicted BOE etch times are calculated from calibration
+                  test-wafer oxide thicknesses. Aluminum contacts go down by electron-beam evaporation, the interconnect layer is defined by PAN etch,
+                  and a final sinter forms ohmic contacts.</p>
+                </dd>
+              </div>
+              <div class="field">
+                <dt>My role</dt>
+                <dd><span class="todo">Team or individual? List the process steps Chris ran himself, the measurements he took, and anything he troubleshot.</span></dd>
+              </div>
+              <div class="field">
+                <dt>Skills &amp; knowledge</dt>
+                <dd>
+                  <ul>
+                    <li>Semiconductor process flow, from substrate to metallized, sintered contacts</li>
+                    <li>Thermal oxidation and diffusion physics, applied to choosing times and temperatures</li>
+                    <li>Photolithography, wet etching (BOE, PAN) and etch-time prediction from measured oxide thickness</li>
+                    <li>Cleanroom protocol and disciplined record-keeping on a process traveler</li>
+                  </ul>
+                  <p class="soft"><b>Soft</b>Precision, procedure, and documenting work so the next step can trust it.</p>
+                </dd>
+              </div>
+              <div class="field">
+                <dt>Resources used</dt>
+                <dd>
+                  <ul>
+                    <li>University cleanroom: oxidation and diffusion furnaces, mask aligner, wet benches, e-beam evaporator</li>
+                    <li>Six-level CyMOS mask set, process traveler, calibration test wafers, oxide thickness measurement</li>
+                    <li><span class="todo inline">course manual / instructor</span></li>
+                  </ul>
+                </dd>
+              </div>
+            </dl>
+            <div class="specs">
+              <div class="spec"><b>6</b><span>Mask levels</span></div>
+              <div class="spec"><b>2</b><span>Device types · NMOS + PMOS</span></div>
+              <div class="spec"><b>Al</b><span>E-beam metal, PAN-etched</span></div>
+            </div>
+          </div>
+          <figure class="fig sticky rv-draw" aria-label="CMOS cross-section">
+            <svg class="sch" viewBox="0 0 360 260">
+              <path class="draw-sc" pathLength="1" d="M20 120 H340 V230 H20 Z"/>
+              <path class="draw-sc" pathLength="1" d="M40 120 V170 Q40 190 60 190 H160 Q180 190 180 170 V120"/>
+              <path class="draw-sc" pathLength="1" d="M55 120 V138 H85 V120 M135 120 V138 H165 V120"/>
+              <path class="draw-sc" pathLength="1" d="M215 120 V138 H245 V120 M295 120 V138 H325 V120"/>
+              <path class="thin" d="M20 120 V108 H55 V120 M165 120 V108 H215 V120 M325 120 V108 H340"/>
+              <path class="draw-sc" pathLength="1" d="M88 116 H132 M248 116 H292"/>
+              <rect class="draw-sc" pathLength="1" x="90" y="92" width="40" height="20"/>
+              <rect class="draw-sc" pathLength="1" x="250" y="92" width="40" height="20"/>
+              <path class="thin" d="M70 120 V80 M150 120 V80 M230 120 V80 M310 120 V80"/>
+              <text x="62" y="134" class="small">n+</text><text x="142" y="134" class="small">n+</text>
+              <text x="222" y="134" class="small">p+</text><text x="302" y="134" class="small">p+</text>
+              <text x="90" y="176">p-well</text>
+              <text x="230" y="210">n-substrate</text>
+              <text class="small" x="98" y="86">GATE</text><text class="small" x="258" y="86">GATE</text>
+              <text class="small" x="22" y="60">S</text><text class="small" x="66" y="74">Al</text>
+              <text x="86" y="40">NMOS</text><text x="246" y="40">PMOS</text>
+              <text class="small" x="176" y="102">FIELD OX</text>
+            </svg>
+            <figcaption><span>Fig. III-d</span><span>CMOS pair · cross-section (schematic)</span></figcaption>
+          </figure>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="titleblock">
+    <nav class="tb-nav" aria-label="Previous and next">
+      <a href="senior-design.html"><span class="label">← Previous</span><strong>II · Senior Design</strong></a>
+      <a href="resume.html"><span class="label">Next →</span><strong>IV · Résumé</strong></a>
+    </nav>
+    <div class="tb-cells">
+      <div class="tb-cell"><span class="label">Engineer</span><span>Christopher Cross</span></div>
+      <div class="tb-cell"><span class="label">Sheet</span><span>III / VIII · Projects</span></div>
+      <div class="tb-cell"><span class="label">Count</span><span>4 projects</span></div>
+      <div class="tb-cell"><span class="label">Focus</span><span>Control systems</span></div>
+      <div class="tb-cell"><span class="label">Rev</span><span>A · 2026</span></div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+  <script src="js/pcb.js"></script>
+  <script src="js/side.js"></script>
+  <script src="js/common.js"></script>
+</body>
+</html>
