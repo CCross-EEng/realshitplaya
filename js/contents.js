@@ -5,11 +5,12 @@
     { n: 'I',    t: 'About',                 s: 'Welcome · career objective', href: '#about' },
     { n: 'II',   t: 'Senior Design',         s: 'EE 4910 / 4920 capstone',    href: '#senior-design' },
     { n: 'III',  t: 'Projects',              s: 'Pendulum · quad · PLC · CMOS', href: '#projects' },
-    { n: 'IV',   t: 'Résumé',                s: 'View · download',           href: '#resume' },
-    { n: 'V',    t: 'Gen Ed Reflection',     s: 'Beyond the lab',             href: '#gen-ed' },
-    { n: 'VI',   t: 'Cumulative Reflection', s: 'Four years in review',       href: '#cumulative' },
-    { n: 'VII',  t: 'Ethics',                s: 'Engineering ethics paper',   href: '#ethics' },
-    { n: 'VIII', t: 'Contact',               s: 'Email · phone · links',      href: '#contact' },
+    { n: 'IV',   t: 'Skills',                s: 'Tools · hardware · concepts', href: '#skills' },
+    { n: 'V',    t: 'Résumé',                s: 'View · download',           href: '#resume' },
+    { n: 'VI',   t: 'Gen Ed Reflection',     s: 'Beyond the lab',             href: '#gen-ed' },
+    { n: 'VII',  t: 'Cumulative Reflection', s: 'Four years in review',       href: '#cumulative' },
+    { n: 'VIII', t: 'Ethics',                s: 'Engineering ethics paper',   href: '#ethics' },
+    { n: 'IX',   t: 'Contact',               s: 'Email · phone · LinkedIn',   href: '#contact' },
   ];
 
   const canvas = document.getElementById('net');
@@ -71,7 +72,7 @@
   }
 
   // which outer vertices carry a section label
-  const LABEL_V = [0, 9, 4, 3, 6, 10, 7, 11];
+  const LABEL_V = [0, 9, 4, 8, 3, 6, 10, 7, 11];
 
 
   // ---------- DOM: labels + table of contents ----------
@@ -259,7 +260,7 @@
   let visible = !('IntersectionObserver' in window), running = false;
   const start = () => { if (!running) { running = true; requestAnimationFrame(frame); } };
   if ('IntersectionObserver' in window) {
-    new IntersectionObserver((es) => { visible = es[0].isIntersecting; if (visible) start(); }, { threshold: 0.02 })
+    new IntersectionObserver((es) => { visible = es[es.length - 1].isIntersecting; if (visible) start(); }, { threshold: 0.02 })
       .observe(canvas.parentElement);
   }
   if (visible) start();
