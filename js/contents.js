@@ -3,7 +3,7 @@
 (function () {
   const SECTIONS = [
     { n: 'I',    t: 'About',                 s: 'Welcome · career objective', href: '#about' },
-    { n: 'II',   t: 'Senior Design',         s: 'EE 4910 / 4920 capstone',    href: '#senior-design' },
+    { n: 'II',   t: 'Senior Design',         s: 'PV-ALPHASync capstone',      href: '#senior-design' },
     { n: 'III',  t: 'Projects',              s: 'Pendulum · quad · PLC · CMOS', href: '#projects' },
     { n: 'IV',   t: 'Skills',                s: 'Tools · hardware · concepts', href: '#skills' },
     { n: 'V',    t: 'Résumé',                s: 'View · download',           href: '#resume' },
